@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="" />
+    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Thresholdsig_BFT_SMaRt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Thresholdsig_BFT_SMaRt.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,9 +26,83 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/home/user/hons_project/Thresholdsig_BFT_SMaRt"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.CounterClient">
+    <configuration name="CounterClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterClient" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="1001 1 100" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bftsmart.demo.counter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CounterServer0" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="0" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bftsmart.demo.counter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CounterServer1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CounterServer2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CounterServer3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.CounterServer1" />
+      <item itemvalue="Application.CounterServer2" />
+      <item itemvalue="Application.CounterServer3" />
+      <item itemvalue="Application.CounterClient" />
+      <item itemvalue="Application.CounterServer0" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CounterClient" />
+        <item itemvalue="Application.CounterServer0" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
