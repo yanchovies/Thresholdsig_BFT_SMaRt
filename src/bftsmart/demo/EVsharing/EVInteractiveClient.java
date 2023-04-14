@@ -3,6 +3,7 @@ package bftsmart.demo.EVsharing;
 
 import java.io.Console;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 public class EVInteractiveClient {
@@ -13,22 +14,19 @@ public class EVInteractiveClient {
 
         int clientId = Integer.parseInt(args[0]);
         EVclient client = new EVclient(clientId);
-        Console console = System.console();
 
         boolean exit = false;
-        String result, user, vehicle;
-        Set<String> vehiclesRegistered = new HashSet<>();
-        Set<String> usersRegistered = new HashSet<>();
+        String result;
+        Scanner sc = new Scanner(System.in);
         while(!exit) {
             System.out.println("Select an option:");
             System.out.println("0 - Terminate this client");
             System.out.println("1 - Register EV");
             System.out.println("2 - Register User");
-//            System.out.println("3 - Removes value from the map");
-//            System.out.println("4 - Retrieve the size of the map");
-//            System.out.println("5 - List all keys available in the table");
+            System.out.println("3 - Book an EV");
 
-            int cmd = Integer.parseInt(console.readLine("Option:"));
+
+            int cmd = Integer.parseInt(sc.nextLine());
 
             switch (cmd) {
                 case 0:
@@ -36,53 +34,40 @@ public class EVInteractiveClient {
                     exit = true;
                     break;
                 case 1:
-                    user = console.readLine("Enter the user ID:");
-                    result = client.registerUser(user);
-                    System.out.println("The outcome of the operation is: " + result + ".");
-//                    if (!usersRegistered.contains(user)) {
-//                        usersRegistered.add(user);
-//                        result = "Success";
-//                        System.out.println("User " + user + " is now successfully registered. The outcome of the operation is: " + result + ".");
-//                        break;
-//                    }
-//                    else {
-//                        result = "Failure";
-//                        System.out.println("User " + user + " is already registered. The outcome of the operation is: " + result + ".");
-//                        break;
-//                    }
-                case 2:
-                    vehicle = console.readLine("Enter the vehicle ID:");
+                    System.out.println("Enter the vehicle ID:");
+                    String vehicleID = sc.nextLine();
+                    System.out.println("Enter the vehicle owner's balance:");
+                    int vehicleOwnerBalance = Integer.parseInt(sc.nextLine());
+                    System.out.println("Specify if the vehicle is available for rental:");
+                    boolean isAvailable = Boolean.parseBoolean(sc.nextLine());
+                    System.out.println("Enter the vehicle's deposit price:");
+                    int depositPrice = Integer.parseInt(sc.nextLine());
+                    System.out.println("Enter the vehicle's rental price (per day):");
+                    int rentalPricePerDay = Integer.parseInt(sc.nextLine());
+                    System.out.println("Enter the repair&maintenance percentage of the final fee:");
+                    int vehicleRepairPercentageOfFee = Integer.parseInt(sc.nextLine());
+                    Vehicle vehicle = new Vehicle(vehicleID, vehicleOwnerBalance, isAvailable, depositPrice, rentalPricePerDay, vehicleRepairPercentageOfFee);
                     result = client.registerVehicle(vehicle);
-                    System.out.println("The outcome of the operation is: " + result + ".");
-//                    if (!vehiclesRegistered.contains(vehicle)) {
-//                        vehiclesRegistered.add(vehicle);
-//                        result = "Success";
-//                        System.out.println("User " + vehicle + " is now successfully registered. The outcome of the operation is: " + result + ".");
-//                        break;
-//                    }
-//                    else {
-//                        result = "Failure";
-//                        System.out.println("User " + vehicle + " is already registered. The outcome of the operation is: " + result + ".");
-//                        break;
-//                    }
-//                case 3:
-//                    System.out.println("Removing value in the map");
-//                    key = console.readLine("Enter the key:");
-//                    result =  map.remove(key);
-//                    System.out.println("Value removed: " + result);
-//                    break;
-//                case 4:
-//                    System.out.println("Getting the map size");
-//                    int size = map.size();
-//                    System.out.println("Map size: " + size);
-//                    break;
-//                case 5:
-//                    System.out.println("Getting all keys");
-//                    Set<String> keys = map.keySet();
-//                    System.out.println("Total number of keys found: " + keys.size());
-//                    for (String k : keys)
-//                        System.out.println("---> " + k);
-//                    break;
+                    System.out.println(result);
+                    break;
+                case 2:
+                    System.out.println("Enter the user ID:");
+                    String userID = sc.nextLine();
+                    System.out.println("Enter the initial balance of the user:");
+                    int balance = Integer.parseInt(sc.nextLine());
+                    // creating a User class object
+                    User user = new User(userID, balance);
+                    result = client.registerUser(user);
+                    System.out.println(result);
+                    break;
+                case 3:
+                    System.out.println("Enter the user ID of the user that would like to book an EV:");
+                    String userId = sc.nextLine();
+                    System.out.println("Enter the vehicle ID of the vehicle that the user would like to book:");
+                    String vehicleId = sc.nextLine();
+                    result = client.bookVehicle(userId, vehicleId);
+                    System.out.println(result);
+                    break;
                 default:
                     break;
             }

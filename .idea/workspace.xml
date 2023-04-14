@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="Added README file and two more info files">
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVInteractiveClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVRequestType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVclient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" afterDir="false" />
+    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="started the implementation of the tool">
+      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Vehicle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVInteractiveClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVInteractiveClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVRequestType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVRequestType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVclient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVclient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,20 +37,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/home/user/hons_project/Thresholdsig_BFT_SMaRt"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/hons_project/Thresholdsig_BFT_SMaRt&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CounterClient">
+  <component name="RunManager" selected="Compound.EVServers">
     <configuration name="CounterClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterClient" />
       <module name="Thresholdsig_BFT_SMaRt" />
@@ -101,15 +103,99 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EVInteractiveClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVInteractiveClient" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="1001" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bftsmart.demo.EVsharing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVserver0" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVserver" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="0" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bftsmart.demo.EVsharing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVserver1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVserver" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bftsmart.demo.EVsharing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVserver2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVserver" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bftsmart.demo.EVsharing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVserver3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVserver" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bftsmart.demo.EVsharing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVServers" type="CompoundRunConfigurationType">
+      <toRun name="EVserver0" type="Application" />
+      <toRun name="EVserver1" type="Application" />
+      <toRun name="EVserver2" type="Application" />
+      <toRun name="EVserver3" type="Application" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.CounterServer1" />
       <item itemvalue="Application.CounterServer2" />
       <item itemvalue="Application.CounterServer3" />
+      <item itemvalue="Application.EVserver0" />
+      <item itemvalue="Application.EVserver1" />
+      <item itemvalue="Application.EVserver2" />
+      <item itemvalue="Application.EVserver3" />
+      <item itemvalue="Application.EVInteractiveClient" />
       <item itemvalue="Application.CounterClient" />
       <item itemvalue="Application.CounterServer0" />
+      <item itemvalue="Compound.EVServers" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.EVInteractiveClient" />
         <item itemvalue="Application.CounterClient" />
         <item itemvalue="Application.CounterServer0" />
       </list>
@@ -131,11 +217,19 @@
       <option name="project" value="LOCAL" />
       <updated>1678119555882</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="started the implementation of the tool">
+      <created>1681264244303</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681264244303</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added README file and two more info files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added README file and two more info files" />
+    <MESSAGE value="started the implementation of the tool" />
+    <option name="LAST_COMMIT_MESSAGE" value="started the implementation of the tool" />
   </component>
 </project>

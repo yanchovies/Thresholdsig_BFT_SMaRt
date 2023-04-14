@@ -3,5 +3,5 @@ package bftsmart.demo.EVsharing;
 
 
 public enum EVRequestType {
-    REGISTERUSER, REGISTERVEHICLE;
+    REGISTERUSER, REGISTERVEHICLE, BOOKVEHICLE;
 }

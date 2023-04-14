@@ -3,10 +3,7 @@ package bftsmart.demo.EVsharing;
 import bftsmart.tom.ServiceProxy;
 
 import java.io.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class EVclient {
 
@@ -16,12 +13,14 @@ public class EVclient {
         serviceProxy = new ServiceProxy(clientId);
     }
 
-    public String registerUser(String userID) {
+    public String registerUser(User user) {
         try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
              ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
 
+            System.out.println("Registering user " + user.userID + " with balance: " + user.userBalance);
+
             objOut.writeObject(EVRequestType.REGISTERUSER);
-            objOut.writeObject(userID);
+            objOut.writeObject(user);
 
             objOut.flush();
             byteOut.flush();
@@ -29,6 +28,7 @@ public class EVclient {
             byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
             if (reply.length == 0)
                 return null;
+            System.out.println("Hello 2");
             try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
                  ObjectInput objIn = new ObjectInputStream(byteIn)) {
                 return (String)objIn.readObject();
@@ -40,12 +40,14 @@ public class EVclient {
         return null;
     }
 
-    public String registerVehicle(String vehicleID) {
+    public String registerVehicle(Vehicle vehicle) {
         try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
              ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
 
+            System.out.println("Registering vehicle " + vehicle.vehicleID);
+
             objOut.writeObject(EVRequestType.REGISTERVEHICLE);
-            objOut.writeObject(vehicleID);
+            objOut.writeObject(vehicle);
 
             objOut.flush();
             byteOut.flush();
@@ -60,6 +62,31 @@ public class EVclient {
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Exception registering a vehicle: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public String bookVehicle(String userID, String vehicleID) {
+        try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+             ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
+
+            objOut.writeObject(EVRequestType.BOOKVEHICLE);
+            AbstractMap.SimpleEntry<String, String> pair = new AbstractMap.SimpleEntry<>(userID, vehicleID);
+            objOut.writeObject(pair);
+
+            objOut.flush();
+            byteOut.flush();
+
+            byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
+            if (reply.length == 0)
+                return null;
+            try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
+                 ObjectInput objIn = new ObjectInputStream(byteIn)) {
+                return (String)objIn.readObject();
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Exception booking a vehicle: " + e.getMessage());
         }
         return null;
     }

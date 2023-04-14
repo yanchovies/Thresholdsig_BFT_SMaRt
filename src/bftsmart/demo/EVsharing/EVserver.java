@@ -7,10 +7,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,14 +17,15 @@ import bftsmart.tom.ServiceReplica;
 import bftsmart.tom.server.defaultservices.DefaultSingleRecoverable;
 
 public class EVserver extends DefaultSingleRecoverable{
-    private Set<String> vehiclesRegistered;
-    private Set<String> usersRegistered;
+    private Map<String, Vehicle> vehiclesRegistered;
+    private Map<String, Integer> usersRegistered;
+    //private Map<String, User> usersRegistered;
     private Logger logger;
 
     public EVserver(int id) {
-        //TODO: add relevant variables to the constructor
-        vehiclesRegistered = new HashSet<String>();
-        usersRegistered = new HashSet<String>();
+        vehiclesRegistered = new HashMap<>();
+
+        usersRegistered = new HashMap<>();
 
         logger = Logger.getLogger(EVserver.class.getName());
         new ServiceReplica(id, this, this);
@@ -35,7 +33,7 @@ public class EVserver extends DefaultSingleRecoverable{
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Usage: demo.map.MapServer <server id>");
+            System.out.println("Usage: demo.EVsharing.EVserver <server id>");
             System.exit(-1);
         }
         new EVserver(Integer.parseInt(args[0]));
@@ -45,9 +43,6 @@ public class EVserver extends DefaultSingleRecoverable{
     @Override
     public byte[] appExecuteOrdered(byte[] command, MessageContext msgCtx) {
         byte[] reply = null;
-        String vehicleID = null;
-        String userID = null;
-
         boolean hasReply = false;
         try (ByteArrayInputStream byteIn = new ByteArrayInputStream(command);
              ObjectInput objIn = new ObjectInputStream(byteIn);
@@ -56,22 +51,54 @@ public class EVserver extends DefaultSingleRecoverable{
             EVRequestType reqType = (EVRequestType) objIn.readObject();
             switch (reqType) {
                 case REGISTERVEHICLE:
-                    vehicleID = (String)objIn.readObject();
-                    if (usersRegistered.contains(vehicleID)) {
-                        objOut.writeObject("Vehicle " + vehicleID + " is already registered.");
+                    Vehicle vehicle = (Vehicle)objIn.readObject();
+                    if (vehiclesRegistered.containsKey(vehicle.vehicleID)) {
+                        objOut.writeObject("Not possible. Vehicle " + vehicle.vehicleID + " is already registered.");
                     } else {
-                        vehiclesRegistered.add(vehicleID);
-                        objOut.writeObject("The vehicle" + vehicleID + " is now successfully registered.");
+                        vehiclesRegistered.put(vehicle.vehicleID, vehicle);
+                        objOut.writeObject("The vehicle " + vehicle.vehicleID + " is now successfully registered.");
                     }
                     hasReply = true;
                     break;
                 case REGISTERUSER:
-                    userID = (String)objIn.readObject();
-                    if (usersRegistered.contains(userID)) {
-                        objOut.writeObject("Vehicle " + userID + " is already registered.");
+                    User user = (User)objIn.readObject();
+                    if (usersRegistered.containsKey(user.userID)) {
+                        objOut.writeObject("Not possible. User with the user Id " + user.userID + " is already registered.");
                     } else {
-                        vehiclesRegistered.add(userID);
-                        objOut.writeObject("The vehicle" + userID + " is now successfully registered.");
+                        usersRegistered.put(user.userID, user.userBalance);
+                        objOut.writeObject("The user with the user Id " + user.userID + " is now successfully registered.");
+                    }
+                    hasReply = true;
+                    break;
+                case BOOKVEHICLE:
+                    AbstractMap.SimpleEntry<String, String> pair = (AbstractMap.SimpleEntry<String, String>)objIn.readObject();
+                    String userID = pair.getKey();
+                    if (!usersRegistered.containsKey(userID)) {
+                        objOut.writeObject("Not possible. User with the user Id " + userID + " is not registered.");
+                    } else {
+                        String vehicleID = pair.getValue();
+                        if (!vehiclesRegistered.containsKey(vehicleID)) {
+                            objOut.writeObject("Not possible. Vehicle with the vehicle Id " + vehicleID + " is not registered.");
+                        } else {
+                            Vehicle vehicle1 = vehiclesRegistered.get(vehicleID);
+                            if (!vehicle1.isAvailable) {
+                                objOut.writeObject("Not possible. Vehicle with the vehicle Id " + vehicleID + " is already booked.");
+                            } else {
+                                if (usersRegistered.get(userID) < vehicle1.depositPrice) {
+                                    objOut.writeObject("Not possible. User with the user Id " + userID + " does not have enough balance.");
+                                } else {
+                                    vehicle1.isAvailable = false;
+                                    vehicle1.currentUserID = userID;
+
+                                    // producing a deposit payment
+                                    usersRegistered.put(userID, usersRegistered.get(userID) - vehicle1.depositPrice);
+                                    vehicle1.vehicleOwnerBalance += vehicle1.depositPrice;
+
+                                    vehiclesRegistered.put(vehicleID, vehicle1);
+                                    objOut.writeObject("The vehicle with the vehicle Id " + vehicleID + " is now successfully booked.");
+                                }
+                            }
+                        }
                     }
                     hasReply = true;
                     break;
@@ -95,45 +122,6 @@ public class EVserver extends DefaultSingleRecoverable{
     public byte[] appExecuteUnordered(byte[] command, MessageContext msgCtx) {
         byte[] reply = null;
 
-//        boolean hasReply = false;
-
-//        try (ByteArrayInputStream byteIn = new ByteArrayInputStream(command);
-//             ObjectInput objIn = new ObjectInputStream(byteIn);
-//             ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-//             ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
-//            MapRequestType reqType = (MapRequestType)objIn.readObject();
-//            switch (reqType) {
-//                case GET:
-//                    key = (K)objIn.readObject();
-//                    value = replicaMap.get(key);
-//                    if (value != null) {
-//                        objOut.writeObject(value);
-//                        hasReply = true;
-//                    }
-//                    break;
-//                case SIZE:
-//                    int size = replicaMap.size();
-//                    objOut.writeInt(size);
-//                    hasReply = true;
-//                    break;
-//                case KEYSET:
-//                    keySet(objOut);
-//                    hasReply = true;
-//                    break;
-//                default:
-//                    logger.log(Level.WARNING, "in appExecuteUnordered only read operations are supported");
-//            }
-//            if (hasReply) {
-//                objOut.flush();
-//                byteOut.flush();
-//                reply = byteOut.toByteArray();
-//            } else {
-//                reply = new byte[0];
-//            }
-//        } catch (IOException | ClassNotFoundException e) {
-//            logger.log(Level.SEVERE, "Ocurred during EV operation execution", e);
-//        }
-
         return reply;
     }
 
@@ -155,8 +143,9 @@ public class EVserver extends DefaultSingleRecoverable{
     public void installSnapshot(byte[] state) {
         try (ByteArrayInputStream byteIn = new ByteArrayInputStream(state);
              ObjectInput objIn = new ObjectInputStream(byteIn)) {
-            vehiclesRegistered = (HashSet<String>)objIn.readObject();
-            usersRegistered = (HashSet<String>)objIn.readObject();
+            vehiclesRegistered = (Map<String, Vehicle>)objIn.readObject();
+            usersRegistered = (Map<String, Integer>)objIn.readObject();
+            // usersRegistered = (Map<String, User>)objIn.readObject();
         } catch (IOException | ClassNotFoundException e) {
             logger.log(Level.SEVERE, "Error while installing snapshot", e);
         }
