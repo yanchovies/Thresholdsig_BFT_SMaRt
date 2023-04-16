@@ -24,7 +24,8 @@ public class EVInteractiveClient {
             System.out.println("1 - Register EV");
             System.out.println("2 - Register User");
             System.out.println("3 - Book an EV");
-
+            System.out.println("4 - Return an EV");
+            System.out.println("5 - Dispute");
 
             int cmd = Integer.parseInt(sc.nextLine());
 
@@ -37,16 +38,18 @@ public class EVInteractiveClient {
                     System.out.println("Enter the vehicle ID:");
                     String vehicleID = sc.nextLine();
                     System.out.println("Enter the vehicle owner's balance:");
-                    int vehicleOwnerBalance = Integer.parseInt(sc.nextLine());
+                    float vehicleOwnerBalance = Integer.parseInt(sc.nextLine());
                     System.out.println("Specify if the vehicle is available for rental:");
                     boolean isAvailable = Boolean.parseBoolean(sc.nextLine());
                     System.out.println("Enter the vehicle's deposit price:");
                     int depositPrice = Integer.parseInt(sc.nextLine());
-                    System.out.println("Enter the vehicle's rental price (per day):");
-                    int rentalPricePerDay = Integer.parseInt(sc.nextLine());
+                    System.out.println("Enter the vehicle's rental price (per hour):");
+                    int rentalPricePerHour = Integer.parseInt(sc.nextLine());
+                    System.out.println("Enter the vehicle's rental price (per km):");
+                    int rentalPricePerKm = Integer.parseInt(sc.nextLine());
                     System.out.println("Enter the repair&maintenance percentage of the final fee:");
                     int vehicleRepairPercentageOfFee = Integer.parseInt(sc.nextLine());
-                    Vehicle vehicle = new Vehicle(vehicleID, vehicleOwnerBalance, isAvailable, depositPrice, rentalPricePerDay, vehicleRepairPercentageOfFee);
+                    Vehicle vehicle = new Vehicle(vehicleID, vehicleOwnerBalance, isAvailable, depositPrice, rentalPricePerHour, rentalPricePerKm, vehicleRepairPercentageOfFee);
                     result = client.registerVehicle(vehicle);
                     System.out.println(result);
                     break;
@@ -54,7 +57,7 @@ public class EVInteractiveClient {
                     System.out.println("Enter the user ID:");
                     String userID = sc.nextLine();
                     System.out.println("Enter the initial balance of the user:");
-                    int balance = Integer.parseInt(sc.nextLine());
+                    float balance = Integer.parseInt(sc.nextLine());
                     // creating a User class object
                     User user = new User(userID, balance);
                     result = client.registerUser(user);
@@ -66,6 +69,28 @@ public class EVInteractiveClient {
                     System.out.println("Enter the vehicle ID of the vehicle that the user would like to book:");
                     String vehicleId = sc.nextLine();
                     result = client.bookVehicle(userId, vehicleId);
+                    System.out.println(result);
+                    break;
+                case 4:
+                    System.out.println("Enter the user ID of the user that would like to return an EV:");
+                    String userid = sc.nextLine();
+                    System.out.println("Enter the vehicle ID of the vehicle that the user would like to return:");
+                    String vehicleid = sc.nextLine();
+//                    System.out.println("Enter the distance in kilometers that the user has driven:");
+//                    float distance = Float.parseFloat(sc.nextLine());
+//                    System.out.println("Enter the number of hours that the user has rented the vehicle:");
+//                    float time = Float.parseFloat(sc.nextLine());
+//                    result = client.returnVehicle(userid, vehicleid, distance, time);
+                    result = client.returnVehicle(userid, vehicleid);
+                    System.out.println(result);
+                    break;
+                case 5:
+                    System.out.println("Enter your user ID:");
+                    String userid1 = sc.nextLine();
+                    System.out.println("Enter the vehicle ID that you have used:");
+                    String vehicleid1 = sc.nextLine();
+
+                    result = client.dispute(vehicleid1, userid1);
                     System.out.println(result);
                     break;
                 default:

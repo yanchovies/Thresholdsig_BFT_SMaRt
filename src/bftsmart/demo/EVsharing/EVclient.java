@@ -17,7 +17,7 @@ public class EVclient {
         try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
              ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
 
-            System.out.println("Registering user " + user.userID + " with balance: " + user.userBalance);
+            System.out.println("Registering user " + user.getUserID() + " with balance: " + user.getUserBalance());
 
             objOut.writeObject(EVRequestType.REGISTERUSER);
             objOut.writeObject(user);
@@ -28,7 +28,6 @@ public class EVclient {
             byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
             if (reply.length == 0)
                 return null;
-            System.out.println("Hello 2");
             try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
                  ObjectInput objIn = new ObjectInputStream(byteIn)) {
                 return (String)objIn.readObject();
@@ -44,7 +43,7 @@ public class EVclient {
         try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
              ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
 
-            System.out.println("Registering vehicle " + vehicle.vehicleID);
+            System.out.println("Registering vehicle " + vehicle.getVehicleID());
 
             objOut.writeObject(EVRequestType.REGISTERVEHICLE);
             objOut.writeObject(vehicle);
@@ -87,6 +86,62 @@ public class EVclient {
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Exception booking a vehicle: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public String returnVehicle(String userID, String vehicleID) {
+        try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+             ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
+            System.out.println("Returning vehicle " + vehicleID + " by user " + userID);
+
+            objOut.writeObject(EVRequestType.RETURNVEHICLE);
+            AbstractMap.SimpleEntry<String, String> pair = new AbstractMap.SimpleEntry<>(userID, vehicleID);
+            objOut.writeObject(pair);
+//            Quartet<String, String, Float, Float> quartet = new Quartet<>(userID, vehicleID, distance, time);
+//            objOut.writeObject(quartet);
+            System.out.println("Client-Hello1");
+
+            objOut.flush();
+            byteOut.flush();
+
+            byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
+            System.out.println("Client-Hello2");
+            if (reply.length == 0)
+                return null;
+            try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
+                 ObjectInput objIn = new ObjectInputStream(byteIn)) {
+                System.out.println("Client-Hello3");
+                return (String)objIn.readObject();
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Exception returning a vehicle: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public String dispute(String vehicleID, String userID) {
+        try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+             ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
+
+            objOut.writeObject(EVRequestType.DISPUTE);
+            AbstractMap.SimpleEntry<String, String> pair = new AbstractMap.SimpleEntry<>(userID, vehicleID);
+            objOut.writeObject(pair);
+
+            objOut.flush();
+            byteOut.flush();
+
+            byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
+            if (reply.length == 0)
+                return null;
+            try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
+                 ObjectInput objIn = new ObjectInputStream(byteIn)) {
+                return (String)objIn.readObject();
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Exception while disputing: " + e.getMessage());
         }
         return null;
     }
