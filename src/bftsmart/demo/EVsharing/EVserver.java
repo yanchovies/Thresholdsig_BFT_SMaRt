@@ -108,21 +108,21 @@ public class EVserver extends DefaultSingleRecoverable{
                     hasReply = true;
                     break;
                 case RETURNVEHICLE:
-                    AbstractMap.SimpleEntry<String, String> quartet = (AbstractMap.SimpleEntry<String, String>)objIn.readObject();
-                    String vehicleID1 = quartet.getValue();
-//                    Quartet<String, String, Float, Float> quartet = (Quartet<String, String, Float, Float>)objIn.readObject();
-//                    String vehicleID1 = quartet.getSecond();
+                    //AbstractMap.SimpleEntry<String, String> quartet = (AbstractMap.SimpleEntry<String, String>)objIn.readObject();
+                    //String vehicleID1 = quartet.getValue();
+                    Quartet<String, String, Float, Float> quartet = (Quartet<String, String, Float, Float>)objIn.readObject();
+                    String vehicleID1 = quartet.getSecond();
                     if (!vehiclesRegistered.containsKey(vehicleID1)) {
                         objOut.writeObject("Not possible. Vehicle with the vehicle Id " + vehicleID1 + " is not registered.");
                     } else {
-//                        String userID1 = quartet.getFirst();
-                        String userID1 = quartet.getKey();
+                        String userID1 = quartet.getFirst();
+                        //String userID1 = quartet.getKey();
                         if (!Objects.equals(vehiclesRegistered.get(vehicleID1).getCurrentUserID(), userID1)) {
                             objOut.writeObject("Not possible. User " + userID1 + " is not using the vehicle " + vehicleID1 + ". The current user of the vehicle " + vehicleID1 + " is " + vehiclesRegistered.get(vehicleID1).getCurrentUserID());
                         } else {
 
-//                            float price = vehiclesRegistered.get(vehicleID1).getVehiclePricePerHour() * quartet.getThird() + vehiclesRegistered.get(vehicleID1).getVehiclePricePerKm() * quartet.getFourth() - vehiclesRegistered.get(vehicleID1).getDepositPrice();
-                            float price = vehiclesRegistered.get(vehicleID1).getVehiclePricePerHour() * 20 + vehiclesRegistered.get(vehicleID1).getVehiclePricePerKm() * 15 - vehiclesRegistered.get(vehicleID1).getDepositPrice();
+                            float price = vehiclesRegistered.get(vehicleID1).getVehiclePricePerHour() * quartet.getThird() + vehiclesRegistered.get(vehicleID1).getVehiclePricePerKm() * quartet.getFourth() - vehiclesRegistered.get(vehicleID1).getDepositPrice();
+                            // float price = vehiclesRegistered.get(vehicleID1).getVehiclePricePerHour() * 20 + vehiclesRegistered.get(vehicleID1).getVehiclePricePerKm() * 15 - vehiclesRegistered.get(vehicleID1).getDepositPrice();
                             float finalPrice = price + price * vehiclesRegistered.get(vehicleID1).getVehicleRepairPercentageOfFee() / 100;
 
                             // producing a random number between 0 and 1 to simulate if the vehicle needs repair
@@ -160,6 +160,7 @@ public class EVserver extends DefaultSingleRecoverable{
 
                             vehiclesRegistered.put(vehicleID1, vehicle2);
                             usersRegistered.put(userID1, user2);
+                            objOut.writeObject("The vehicle with the vehicle Id " + vehicleID1 + " is now successfully returned.");
                         }
                     }
                     hasReply = true;
@@ -184,7 +185,11 @@ public class EVserver extends DefaultSingleRecoverable{
                                     // producing a random number to simulate the compensation
                                     // for the sake of simplicity, we assume that the compensation is always some refund,
                                     // and it lies in the range between the deposit price and the deposite price x2
-                                    compensation = (int)(Math.random() * (vehiclesRegistered.get(vehicleID2).getDepositPrice() + 1) + vehiclesRegistered.get(vehicleID2).getDepositPrice());
+                                    compensation = (int) (Math.random() * (vehiclesRegistered.get(vehicleID2).getDepositPrice() + 1) + vehiclesRegistered.get(vehicleID2).getDepositPrice());
+                                    objOut.writeObject("The user " + userID2 + " wins the dispute. The user gets a compensation of " + compensation + " pounds.");
+                                } else {
+                                    objOut.writeObject("The user " + userID2 + " loses the dispute. The user does not get any compensation.");
+                                }
 
                                 // simulating transaction
                                 // if the user wins the dispute, the vehicle owner pays the compensation to user
@@ -197,27 +202,11 @@ public class EVserver extends DefaultSingleRecoverable{
                                 // storing the results
                                 vehiclesRegistered.put(vehicleID2, vehicle3);
                                 usersRegistered.put(userID2, user3);
-                                }
                             }
                         }
                     }
                     hasReply = true;
                     break;
-//                case MAINTENANCEANDREPAIR:
-//                    Triple<String, String, Float> triple = (Triple<String, String, Float>)objIn.readObject();
-//                    String vehicleID2 = triple.getFirst();
-//                    if (!vehiclesRegistered.containsKey(vehicleID2)) {
-//                        objOut.writeObject("Not possible. Vehicle with the vehicle Id " + vehicleID2 + " is not registered.");
-//                    } else {
-//                        String userID2 = triple.getSecond();
-//                        if ((!vehiclesRegistered.get(vehicleID2).getIDsOfUsersThatUsedVehicle().contains(userID2)) || (!usersRegistered.get(userID2).getIDsOfVehiclesUsed().contains(vehicleID2))) {
-//                            objOut.writeObject("Not possible. User " + userID2 + " did not use the vehicle " + vehicleID2);
-//                        } else {
-//
-//                        }
-//                    }
-//                    hasReply = true;
-//                    break;
             }
             if (hasReply) {
                 objOut.flush();

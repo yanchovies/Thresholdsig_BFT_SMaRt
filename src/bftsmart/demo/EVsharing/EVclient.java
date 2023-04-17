@@ -90,28 +90,25 @@ public class EVclient {
         return null;
     }
 
-    public String returnVehicle(String userID, String vehicleID) {
+    public String returnVehicle(String userID, String vehicleID, float distance, float time) {
         try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
              ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
             System.out.println("Returning vehicle " + vehicleID + " by user " + userID);
 
             objOut.writeObject(EVRequestType.RETURNVEHICLE);
-            AbstractMap.SimpleEntry<String, String> pair = new AbstractMap.SimpleEntry<>(userID, vehicleID);
-            objOut.writeObject(pair);
-//            Quartet<String, String, Float, Float> quartet = new Quartet<>(userID, vehicleID, distance, time);
-//            objOut.writeObject(quartet);
-            System.out.println("Client-Hello1");
+//            AbstractMap.SimpleEntry<String, String> pair = new AbstractMap.SimpleEntry<>(userID, vehicleID);
+//            objOut.writeObject(pair);
+            Quartet<String, String, Float, Float> quartet = new Quartet<>(userID, vehicleID, distance, time);
+            objOut.writeObject(quartet);
 
             objOut.flush();
             byteOut.flush();
 
             byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
-            System.out.println("Client-Hello2");
             if (reply.length == 0)
                 return null;
             try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
                  ObjectInput objIn = new ObjectInputStream(byteIn)) {
-                System.out.println("Client-Hello3");
                 return (String)objIn.readObject();
             }
 

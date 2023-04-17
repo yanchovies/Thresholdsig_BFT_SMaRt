@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="registering and booking processes are done">
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Quartet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Triple.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVInteractiveClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVInteractiveClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVRequestType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVRequestType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVclient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVclient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Vehicle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +51,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.EVInteractiveClient">
+  <component name="RunManager" selected="Compound.EVServers">
     <configuration name="CounterClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterClient" />
       <module name="Thresholdsig_BFT_SMaRt" />

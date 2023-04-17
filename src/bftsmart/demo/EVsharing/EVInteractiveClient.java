@@ -76,12 +76,12 @@ public class EVInteractiveClient {
                     String userid = sc.nextLine();
                     System.out.println("Enter the vehicle ID of the vehicle that the user would like to return:");
                     String vehicleid = sc.nextLine();
-//                    System.out.println("Enter the distance in kilometers that the user has driven:");
-//                    float distance = Float.parseFloat(sc.nextLine());
-//                    System.out.println("Enter the number of hours that the user has rented the vehicle:");
-//                    float time = Float.parseFloat(sc.nextLine());
-//                    result = client.returnVehicle(userid, vehicleid, distance, time);
-                    result = client.returnVehicle(userid, vehicleid);
+                    System.out.println("Enter the distance in kilometers that the user has driven:");
+                    float distance = Float.parseFloat(sc.nextLine());
+                    System.out.println("Enter the number of hours that the user has rented the vehicle:");
+                    float time = Float.parseFloat(sc.nextLine());
+                    result = client.returnVehicle(userid, vehicleid, distance, time);
+                    //result = client.returnVehicle(userid, vehicleid);
                     System.out.println(result);
                     break;
                 case 5:
