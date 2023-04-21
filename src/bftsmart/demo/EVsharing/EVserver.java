@@ -29,6 +29,8 @@ public class EVserver extends DefaultSingleRecoverable{
 
         usersRegistered = new HashMap<>();
 
+        // random = new Random();
+
         logger = Logger.getLogger(EVserver.class.getName());
         new ServiceReplica(id, this, this);
     }
@@ -38,6 +40,7 @@ public class EVserver extends DefaultSingleRecoverable{
             System.out.println("Usage: demo.EVsharing.EVserver <server id>");
             System.exit(-1);
         }
+        // random.setSeed(5);
         new EVserver(Integer.parseInt(args[0]));
     }
 
@@ -126,12 +129,12 @@ public class EVserver extends DefaultSingleRecoverable{
                             float finalPrice = price + price * vehiclesRegistered.get(vehicleID1).getVehicleRepairPercentageOfFee() / 100;
 
                             // producing a random number between 0 and 1 to simulate if the vehicle needs repair
-                            int needsRepair = (int)(Math.random() * 2);
+                            Random random = new Random();
+                            boolean needsRepair = random.nextBoolean();
                             int maintenanceRepairCost = 0;
-                            if (needsRepair == 1) {
-                                // producing a random number between 1 and the deposit price to simulate the repair cost
-                                // for the sake of simplicity, we assume that the repair cost is always less than the deposit price
-                                maintenanceRepairCost = (int)(Math.random() * vehiclesRegistered.get(vehicleID1).getDepositPrice() + 1);
+                            if (needsRepair) {
+                                // for the sake of simplicity, we assume that the cost lies in the range between the deposit price and the deposite price x2
+                                maintenanceRepairCost = vehiclesRegistered.get(vehicleID1).getDepositPrice() + random.nextInt(vehiclesRegistered.get(vehicleID1).getDepositPrice() + 1);
                             }
 
                             finalPrice += maintenanceRepairCost;
@@ -178,30 +181,29 @@ public class EVserver extends DefaultSingleRecoverable{
                             if ((!vehiclesRegistered.get(vehicleID2).getIDsOfUsersThatUsedVehicle().contains(userID2)) || (!usersRegistered.get(userID2).getIDsOfVehiclesUsed().contains(vehicleID2))) {
                                 objOut.writeObject("Not possible. The ID history of the user and the vehicle do not coincide. User " + userID2 + " did not use the vehicle " + vehicleID2);
                             } else {
-                                // simulating the outcome of the dispute. If the outcome is 1, the user wins the dispute and gets some compensation.
-                                int disputeOutcome = (int)(Math.random() * 2);
-                                int compensation = 0;
-                                if (disputeOutcome == 1) {
+                                // simulating the outcome of the dispute. If the outcome is true, the user wins the dispute and gets some compensation.
+                                Random random2 = new Random();
+                                boolean disputeOutcome = random2.nextBoolean();
+                                if (disputeOutcome) {
                                     // producing a random number to simulate the compensation
-                                    // for the sake of simplicity, we assume that the compensation is always some refund,
-                                    // and it lies in the range between the deposit price and the deposite price x2
-                                    compensation = (int) (Math.random() * (vehiclesRegistered.get(vehicleID2).getDepositPrice() + 1) + vehiclesRegistered.get(vehicleID2).getDepositPrice());
+                                    // for the sake of simplicity, we assume that the compensation is always a refund,
+                                    // and it equals to the deposit price
+                                    float compensation = vehiclesRegistered.get(vehicleID2).getDepositPrice() ;
+                                    // simulating transaction
+                                    // if the user wins the dispute, the vehicle owner pays the compensation to user
+                                    // if the user loses the dispute, nothing happens
+                                    Vehicle vehicle3 = vehiclesRegistered.get(vehicleID2);
+                                    User user3 = usersRegistered.get(userID2);
+                                    vehicle3.setVehicleOwnerBalance(vehicle3.getVehicleOwnerBalance() - compensation);
+                                    user3.setUserBalance(user3.getUserBalance() + compensation);
+
+                                    // storing the results
+                                    vehiclesRegistered.put(vehicleID2, vehicle3);
+                                    usersRegistered.put(userID2, user3);
                                     objOut.writeObject("The user " + userID2 + " wins the dispute. The user gets a compensation of " + compensation + " pounds.");
                                 } else {
                                     objOut.writeObject("The user " + userID2 + " loses the dispute. The user does not get any compensation.");
                                 }
-
-                                // simulating transaction
-                                // if the user wins the dispute, the vehicle owner pays the compensation to user
-                                // if the user loses the dispute, nothing happens
-                                Vehicle vehicle3 = vehiclesRegistered.get(vehicleID2);
-                                User user3 = usersRegistered.get(userID2);
-                                vehicle3.setVehicleOwnerBalance(vehicle3.getVehicleOwnerBalance() - compensation);
-                                user3.setUserBalance(user3.getUserBalance() + compensation);
-
-                                // storing the results
-                                vehiclesRegistered.put(vehicleID2, vehicle3);
-                                usersRegistered.put(userID2, user3);
                             }
                         }
                     }

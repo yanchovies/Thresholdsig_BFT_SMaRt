@@ -13,32 +13,6 @@ public class EVclient {
         serviceProxy = new ServiceProxy(clientId);
     }
 
-    public String registerUser(User user) {
-        try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-             ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
-
-            System.out.println("Registering user " + user.getUserID() + " with balance: " + user.getUserBalance());
-
-            objOut.writeObject(EVRequestType.REGISTERUSER);
-            objOut.writeObject(user);
-
-            objOut.flush();
-            byteOut.flush();
-
-            byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
-            if (reply.length == 0)
-                return null;
-            try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
-                 ObjectInput objIn = new ObjectInputStream(byteIn)) {
-                return (String)objIn.readObject();
-            }
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Exception registering a user: " + e.getMessage());
-        }
-        return null;
-    }
-
     public String registerVehicle(Vehicle vehicle) {
         try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
              ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
@@ -61,6 +35,32 @@ public class EVclient {
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Exception registering a vehicle: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public String registerUser(User user) {
+        try (ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+             ObjectOutput objOut = new ObjectOutputStream(byteOut);) {
+
+            System.out.println("Registering user " + user.getUserID() + " with balance: " + user.getUserBalance());
+
+            objOut.writeObject(EVRequestType.REGISTERUSER);
+            objOut.writeObject(user);
+
+            objOut.flush();
+            byteOut.flush();
+
+            byte[] reply = serviceProxy.invokeOrdered(byteOut.toByteArray());
+            if (reply.length == 0)
+                return null;
+            try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply);
+                 ObjectInput objIn = new ObjectInputStream(byteIn)) {
+                return (String)objIn.readObject();
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Exception registering a user: " + e.getMessage());
         }
         return null;
     }

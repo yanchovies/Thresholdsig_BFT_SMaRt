@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Vehicle implements Serializable {
 
@@ -28,17 +29,20 @@ public class Vehicle implements Serializable {
 
     private int vehiclePricePerKm;
 
-    private boolean needsRepair;
+    // private boolean needsRepair;
 
     private int vehicleRepairPercentageOfFee;
 
-    private int vehicleRepairAdditionalCost;
+    // private int vehicleRepairAdditionalCost;
 
     private List<String> IDsOfUsersThatUsedVehicle;
 
+    private Random random = new Random();
+
     public Vehicle(String vehicleID, float vehicleOwnerBalance, boolean isAvailable, int depositPrice, int vehiclePricePerHour, int vehiclePricePerKm, int vehicleRepairPercentageOfFee) {
+        //random.setSeed(6);
         this.vehicleID = vehicleID;
-        this.vehicleAccessCode = getRandomString(8);
+        this.vehicleAccessCode = String.valueOf(10000000 + random.nextInt(89999999));
         this.vehicleOwnerBalance = vehicleOwnerBalance;
         this.isAvailable = isAvailable;
         this.currentUserID = "";
@@ -46,9 +50,9 @@ public class Vehicle implements Serializable {
         this.depositPrice = depositPrice;
         this.vehiclePricePerHour = vehiclePricePerHour;
         this.vehiclePricePerKm = vehiclePricePerKm;
-        this.needsRepair = false;
+        // this.needsRepair = false;
         this.vehicleRepairPercentageOfFee = vehicleRepairPercentageOfFee;
-        this.vehicleRepairAdditionalCost = 0;
+        // this.vehicleRepairAdditionalCost = 0;
         this.IDsOfUsersThatUsedVehicle = new ArrayList<>();
     }
 
@@ -86,17 +90,13 @@ public class Vehicle implements Serializable {
         return vehiclePricePerKm;
     }
 
-    public boolean getNeedsRepair() {
-        return needsRepair;
-    }
+    //public boolean getNeedsRepair() {return needsRepair;}
 
     public int getVehicleRepairPercentageOfFee() {
         return vehicleRepairPercentageOfFee;
     }
 
-    public int getVehicleRepairAdditionalCost() {
-        return vehicleRepairAdditionalCost;
-    }
+    // public int getVehicleRepairAdditionalCost() {return vehicleRepairAdditionalCost;}
 
     public List<String> getIDsOfUsersThatUsedVehicle() {
         return IDsOfUsersThatUsedVehicle;
@@ -109,7 +109,7 @@ public class Vehicle implements Serializable {
     }
 
     public void setVehicleAccessCode() {
-        this.vehicleAccessCode = getRandomString(8);
+        this.vehicleAccessCode = String.valueOf(10000000 + random.nextInt(89999999));
     }
 
     public void setVehicleOwnerBalance(float vehicleOwnerBalance) {
@@ -136,17 +136,13 @@ public class Vehicle implements Serializable {
         this.vehiclePricePerKm = vehiclePricePerKm;
     }
 
-    public void setNeedsRepair(boolean needsRepair) {
-        this.needsRepair = needsRepair;
-    }
+    // public void setNeedsRepair(boolean needsRepair) {this.needsRepair = needsRepair;}
 
     public void setVehicleRepairPercentageOfFee(int vehicleRepairPercentageOfFee) {
         this.vehicleRepairPercentageOfFee = vehicleRepairPercentageOfFee;
     }
 
-    public void setVehicleRepairAdditionalCost(int vehicleRepairAdditionalCost) {
-        this.vehicleRepairAdditionalCost = vehicleRepairAdditionalCost;
-    }
+    // public void setVehicleRepairAdditionalCost(int vehicleRepairAdditionalCost) {this.vehicleRepairAdditionalCost = vehicleRepairAdditionalCost;}
 
     public void setIDsOfUsersThatUsedVehicle(List<String> IDsOfUsersThatUsedVehicle) {
         this.IDsOfUsersThatUsedVehicle = IDsOfUsersThatUsedVehicle;
@@ -154,23 +150,23 @@ public class Vehicle implements Serializable {
 
     // other methods
 
-    public String getRandomString(int theLength)
-    {
-
-        // a string to choose a character from
-        String helperString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                + "0123456789"
-                + "abcdefghijklmnopqrstuvxyz";
-
-        // create StringBuffer size of our helper string
-        StringBuilder stringBuilder = new StringBuilder(theLength);
-
-        for (int i = 0; i < theLength; i++) {
-
-            // generate a random number between 0 to the length of helper string and append a character at the end of string buffer
-            stringBuilder.append(helperString.charAt((int)(helperString.length() * Math.random())));
-        }
-
-        return stringBuilder.toString();
-    }
+//    public static String getRandomString(int theLength)
+//    {
+//
+//        // a string to choose a character from
+//        String helperString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+//                + "0123456789"
+//                + "abcdefghijklmnopqrstuvxyz";
+//
+//        // create StringBuffer size of our helper string
+//        StringBuilder stringBuilder = new StringBuilder(theLength);
+//
+//        for (int i = 0; i < theLength; i++) {
+//
+//            // generate a random number between 0 to the length of helper string and append a character at the end of string buffer
+//            stringBuilder.append(helperString.charAt((int)(helperString.length() * Math.random())));
+//        }
+//
+//        return stringBuilder.toString();
+//    }
 }
