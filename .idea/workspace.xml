@@ -3,17 +3,68 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="the implementation of the tool is done">
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/benchmark/Operation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/benchmark/ThroughputLatencyClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/benchmark/ThroughputLatencyServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVThroughputLatencyClient.java" afterDir="false" />
+    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="some fixes to implementation and progress with experiments implementation">
+      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVThroughputLatencyServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVclient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVclient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/currentView" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/benchmark/ThroughputLatencyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/benchmark/ThroughputLatencyServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/communication/MessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/communication/MessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/Epoch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/Epoch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/messages/KeyShareMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/messages/KeyShareMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/messages/MessageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/messages/MessageFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/messages/SigShareMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/messages/SigShareMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Backup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Backup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Primary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Primary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVThroughputLatencyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVThroughputLatencyClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Triple.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Quartet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Quartet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/SafePrimeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/SafePrimeGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/Thresig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/Thresig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/BaseStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/BaseStateManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/StandardStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/StandardStateManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTRequestF1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTRequestFGT1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTSMMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/DurableStateManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/StateSender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/StateSenderServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/MessageContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/MessageContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/ServiceReplica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/ServiceReplica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/core/DeliveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/core/DeliveryThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/core/Synchronizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/core/Synchronizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/core/TOMLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/core/TOMLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/CertifiedDecision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/CertifiedDecision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/LCManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/LCManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/CommandsInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/CommandsInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/DefaultApplicationState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/DefaultApplicationState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/durability/DurabilityCoordinator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/durability/DurableStateLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/util/TOMUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/util/TOMUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,24 +90,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/user/hons_project/Thresholdsig_BFT_SMaRt&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "last_opened_file_path": "/home/user/hons_project/Thresholdsig_BFT_SMaRt"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Compound.EVServers">
+  <component name="RunManager" selected="Application.EVInteractiveClient">
     <configuration name="CounterClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterClient" />
       <module name="Thresholdsig_BFT_SMaRt" />
@@ -127,12 +171,49 @@
       <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyClient" />
       <module name="Thresholdsig_BFT_SMaRt" />
       <option name="PROGRAM_PARAMETERS" value="1 5 100 5" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="bftsmart.demo.EVsharing.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer0" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="0" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="2" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="3" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -193,6 +274,51 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ThroughputLatencyClient" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.benchmark.ThroughputLatencyClient" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="1001 1 1000 1000" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThroughputLatencyServer0" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.benchmark.ThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="0" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThroughputLatencyServer1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.benchmark.ThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThroughputLatencyServer2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.benchmark.ThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="2" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThroughputLatencyServer3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.benchmark.ThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="3" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EVServers" type="CompoundRunConfigurationType">
       <toRun name="EVserver0" type="Application" />
       <toRun name="EVserver1" type="Application" />
@@ -200,7 +326,30 @@
       <toRun name="EVserver3" type="Application" />
       <method v="2" />
     </configuration>
+    <configuration name="EVThroughputLatencyServers" type="CompoundRunConfigurationType">
+      <toRun name="EVThroughputLatencyServer0" type="Application" />
+      <toRun name="EVThroughputLatencyServer1" type="Application" />
+      <toRun name="EVThroughputLatencyServer2" type="Application" />
+      <toRun name="EVThroughputLatencyServer3" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ThroughputLatencyServers" type="CompoundRunConfigurationType">
+      <toRun name="ThroughputLatencyServer0" type="Application" />
+      <toRun name="ThroughputLatencyServer1" type="Application" />
+      <toRun name="ThroughputLatencyServer2" type="Application" />
+      <toRun name="ThroughputLatencyServer3" type="Application" />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Application.ThroughputLatencyServer0" />
+      <item itemvalue="Application.ThroughputLatencyServer1" />
+      <item itemvalue="Application.ThroughputLatencyServer2" />
+      <item itemvalue="Application.ThroughputLatencyServer3" />
+      <item itemvalue="Application.ThroughputLatencyClient" />
+      <item itemvalue="Application.EVThroughputLatencyServer0" />
+      <item itemvalue="Application.EVThroughputLatencyServer1" />
+      <item itemvalue="Application.EVThroughputLatencyServer2" />
+      <item itemvalue="Application.EVThroughputLatencyServer3" />
       <item itemvalue="Application.CounterServer1" />
       <item itemvalue="Application.CounterServer2" />
       <item itemvalue="Application.CounterServer3" />
@@ -212,6 +361,8 @@
       <item itemvalue="Application.EVInteractiveClient" />
       <item itemvalue="Application.CounterClient" />
       <item itemvalue="Application.CounterServer0" />
+      <item itemvalue="Compound.ThroughputLatencyServers" />
+      <item itemvalue="Compound.EVThroughputLatencyServers" />
       <item itemvalue="Compound.EVServers" />
     </list>
     <recent_temporary>
@@ -224,6 +375,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="" />
@@ -231,6 +385,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678118492342</updated>
+      <workItem from="1682178710408" duration="2759000" />
     </task>
     <task id="LOCAL-00001" summary="Added README file and two more info files">
       <created>1678119555882</created>
@@ -260,14 +415,36 @@
       <option name="project" value="LOCAL" />
       <updated>1681744632433</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="some fixes to implementation and progress with experiments implementation">
+      <created>1682038473890</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682038473890</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added README file and two more info files" />
     <MESSAGE value="started the implementation of the tool" />
     <MESSAGE value="registering and booking processes are done" />
     <MESSAGE value="the implementation of the tool is done" />
-    <option name="LAST_COMMIT_MESSAGE" value="the implementation of the tool is done" />
+    <MESSAGE value="some fixes to implementation and progress with experiments implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="some fixes to implementation and progress with experiments implementation" />
   </component>
 </project>

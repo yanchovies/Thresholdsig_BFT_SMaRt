@@ -1,6 +1,7 @@
 package bftsmart.consensus.messages;
 
 import bftsmart.communication.SystemMessage;
+import bftsmart.tom.util.TOMUtil;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -9,7 +10,9 @@ import java.math.BigInteger;
  * @Author Moonk
  * @Date 2022/6/19
  */
-public class KeyShareMessage extends SystemMessage{
+public class KeyShareMessage extends ConsensusMessage {
+    private static final long serialVersionUID = 658968461577841206L;
+
     private BigInteger secret;
     private int id;
     private BigInteger verifier;
@@ -18,10 +21,13 @@ public class KeyShareMessage extends SystemMessage{
     private BigInteger n;
     private int l;
     private boolean isLeaderMessage = false;
-    public KeyShareMessage(final int id, final BigInteger secret) {
+
+    public KeyShareMessage(final int id, final BigInteger secret, int from,int number) {
+        super(MessageFactory.KEYSHARE,number,0,from);
         this.id = id;
         this.secret = secret;
     }
+
 
     public int getL() {
         return l;
@@ -73,31 +79,84 @@ public class KeyShareMessage extends SystemMessage{
     @Override
     public String toString() {
         return "KeyShareMessage{" +
-                "id=" + id +
+                "from=" + sender +
+                ", number =" + super.getNumber() +
+                ", type =" + super.getType() +
                 '}';
     }
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(secret);
+        super.writeExternal(out);
         out.writeInt(id);
-        out.writeObject(verifier);
-        out.writeObject(groupVerifier);
-        out.writeObject(e);
-        out.writeObject(n);
         out.writeBoolean(isLeaderMessage);
         out.writeInt(l);
+        byte[] bytes = TOMUtil.toByteArray(secret);
+        out.writeInt(bytes.length);
+        out.write(bytes);
+        bytes = TOMUtil.toByteArray(verifier);
+        out.writeInt(bytes.length);
+        out.write(bytes);
+        bytes = TOMUtil.toByteArray(groupVerifier);
+        out.writeInt(bytes.length);
+        out.write(bytes);
+        bytes = TOMUtil.toByteArray(e);
+        out.writeInt(bytes.length);
+        out.write(bytes);
+        bytes = TOMUtil.toByteArray(n);
+        out.writeInt(bytes.length);
+        out.write(bytes);
 
     }
 
     @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        secret = (BigInteger) in.readObject();
+        super.readExternal(in);
         id = in.readInt();
-        verifier = (BigInteger) in.readObject();
-        groupVerifier = (BigInteger) in.readObject();
-        e = (BigInteger) in.readObject();
-        n = (BigInteger) in.readObject();
         isLeaderMessage = in.readBoolean();
         l = in.readInt();
+        int toRead = in.readInt();
+        if(toRead != -1) {
+            byte[] value= new byte[toRead];
+            do{
+                toRead -= in.read(value, value.length-toRead, toRead);
+
+            } while(toRead > 0);
+            secret = new BigInteger(1,value);
+        }
+        toRead = in.readInt();
+        if(toRead != -1) {
+            byte[] value= new byte[toRead];
+            do{
+                toRead -= in.read(value, value.length-toRead, toRead);
+
+            } while(toRead > 0);
+            verifier = new BigInteger(1,value);
+        }
+        toRead = in.readInt();
+        if(toRead != -1) {
+            byte[] value= new byte[toRead];
+            do{
+                toRead -= in.read(value, value.length-toRead, toRead);
+            } while(toRead > 0);
+            groupVerifier = new BigInteger(1,value);
+        }
+        toRead = in.readInt();
+        if(toRead != -1) {
+            byte[] value= new byte[toRead];
+            do{
+                toRead -= in.read(value, value.length-toRead, toRead);
+            } while(toRead > 0);
+            e = new BigInteger(1,value);
+        }
+        toRead = in.readInt();
+        if(toRead != -1) {
+            byte[] value= new byte[toRead];
+            do{
+                toRead -= in.read(value, value.length-toRead, toRead);
+            } while(toRead > 0);
+            n = new BigInteger(1,value);
+        }
+
     }
 }
+

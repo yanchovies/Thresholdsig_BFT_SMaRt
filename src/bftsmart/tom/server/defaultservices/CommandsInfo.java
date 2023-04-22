@@ -25,35 +25,35 @@ import java.util.Arrays;
  * @author Joao Sousa
  */
 public class CommandsInfo implements Serializable {
-	
+
     private static final long serialVersionUID = 342711292879899682L;
-	
     public byte[][] commands;
     public MessageContext[] msgCtx;
 
 
-    public CommandsInfo () {
+    public CommandsInfo() {
         this.commands = null;
         this.msgCtx = null;
     }
-    
+
     public CommandsInfo(byte[][] commands, MessageContext[] msgCtx) {
         this.commands = commands;
         MessageContext[] onlyNeeded = null;
         if (msgCtx != null && msgCtx.length > 0) {
-        	onlyNeeded = new MessageContext[msgCtx.length];
-        	for(int i = 0; i < msgCtx.length; i++) {
-                    MessageContext msg = new MessageContext(msgCtx[i].getSender(),
-                            msgCtx[i].getViewID(), msgCtx[i].getType(),
-                            msgCtx[i].getSession(), msgCtx[i].getSequence(),
-                            msgCtx[i].getOperationId(), msgCtx[i].getReplyServer(),
-                            msgCtx[i].getSignature(), msgCtx[i].getTimestamp(),
-                            msgCtx[i].getNumOfNonces(),  msgCtx[i].getSeed(),
-                            msgCtx[i].getRegency(), msgCtx[i].getLeader(),
-                            msgCtx[i].getConsensusId(), msgCtx[i].getProof(),
-                            msgCtx[i].getFirstInBatch(), msgCtx[i].isNoOp());
-                    onlyNeeded[i] = msg;
-        	}
+            onlyNeeded = new MessageContext[msgCtx.length];
+            for (int i = 0; i < msgCtx.length; i++) {
+                MessageContext msg = new MessageContext(msgCtx[i].getSender(),
+                        msgCtx[i].getViewID(), msgCtx[i].getType(),
+                        msgCtx[i].getSession(), msgCtx[i].getSequence(),
+                        msgCtx[i].getOperationId(), msgCtx[i].getReplyServer(),
+                        msgCtx[i].getSignature(), msgCtx[i].getTimestamp(),
+                        msgCtx[i].getNumOfNonces(), msgCtx[i].getSeed(),
+                        msgCtx[i].getRegency(), msgCtx[i].getLeader(),
+                        msgCtx[i].getConsensusId(), msgCtx[i].getProof(),
+                        msgCtx[i].getN(), msgCtx[i].getE(),
+                        msgCtx[i].getFirstInBatch(), msgCtx[i].isNoOp());
+                onlyNeeded[i] = msg;
+            }
         }
         this.msgCtx = onlyNeeded;
     }
@@ -65,41 +65,41 @@ public class CommandsInfo implements Serializable {
 
             if ((this.commands != null && ci.commands == null) ||
                     (this.commands == null && ci.commands != null)) {
-                //System.out.println("[CommandsInfo] returing FALSE!1");
+                //logger.info("[CommandsInfo] returing FALSE!1");
                 return false;
             }
 
             if (this.commands != null && ci.commands != null) {
 
                 if (this.commands.length != ci.commands.length) {
-                    //System.out.println("[CommandsInfo] returing FALSE!2");
+                    //logger.info("[CommandsInfo] returing FALSE!2");
                     return false;
                 }
-                
+
                 for (int i = 0; i < this.commands.length; i++) {
-                    
+
                     if (this.commands[i] == null && ci.commands[i] != null) {
-                        //System.out.println("[CommandsInfo] returing FALSE!3");
+                        //logger.info("[CommandsInfo] returing FALSE!3");
                         return false;
                     }
 
                     if (this.commands[i] != null && ci.commands[i] == null) {
-                        //System.out.println("[CommandsInfo] returing FALSE!4");
+                        //logger.info("[CommandsInfo] returing FALSE!4");
                         return false;
                     }
-                    
+
                     if (!(this.commands[i] == null && ci.commands[i] == null) &&
-                        (!Arrays.equals(this.commands[i], ci.commands[i]))) {
-                        //System.out.println("[CommandsInfo] returing FALSE!5" + (this.commands[i] == null) + " " + (ci.commands[i] == null));
+                            (!Arrays.equals(this.commands[i], ci.commands[i]))) {
+                        //logger.info("[CommandsInfo] returing FALSE!5" + (this.commands[i] == null) + " " + (ci.commands[i] == null));
                         return false;
                     }
                 }
             }
             //System.out.print("[CommandsInfo] returnig........");
-            //System.out.println((this.epoch == ci.epoch) + " " + (this.leader == ci.leader));
+            //logger.info((this.epoch == ci.epoch) + " " + (this.leader == ci.leader));
             return true;
         }
-        //System.out.println("[CommandsInfo] returing FALSE!");
+        //logger.info("[CommandsInfo] returing FALSE!");
         return false;
     }
 
@@ -107,7 +107,7 @@ public class CommandsInfo implements Serializable {
     public int hashCode() {
 
         int hash = 1;
-        
+
         if (this.commands != null) {
             for (int i = 0; i < this.commands.length; i++) {
                 if (this.commands[i] != null) {

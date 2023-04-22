@@ -1,6 +1,5 @@
 package bftsmart.demo.EVsharing;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Random;
 
 public class Vehicle implements Serializable {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private String vehicleID;
@@ -40,7 +38,7 @@ public class Vehicle implements Serializable {
     private Random random = new Random();
 
     public Vehicle(String vehicleID, float vehicleOwnerBalance, boolean isAvailable, int depositPrice, int vehiclePricePerHour, int vehiclePricePerKm, int vehicleRepairPercentageOfFee) {
-        //random.setSeed(6);
+        random.setSeed(12345);
         this.vehicleID = vehicleID;
         this.vehicleAccessCode = String.valueOf(10000000 + random.nextInt(89999999));
         this.vehicleOwnerBalance = vehicleOwnerBalance;
@@ -109,6 +107,7 @@ public class Vehicle implements Serializable {
     }
 
     public void setVehicleAccessCode() {
+        random.setSeed(12345);
         this.vehicleAccessCode = String.valueOf(10000000 + random.nextInt(89999999));
     }
 

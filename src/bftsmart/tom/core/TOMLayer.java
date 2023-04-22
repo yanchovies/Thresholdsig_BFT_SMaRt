@@ -386,10 +386,7 @@ public final class TOMLayer extends Thread implements RequestReceiver {
             if (!clientsManager.havePendingRequests()) {
                 haveMessages.awaitUninterruptibly();
             }
-            if(!alreadySendKeys){
-                execManager.getPrimary().sendThresholdSigKeys();
-                alreadySendKeys = true;
-            }
+
             messagesLock.unlock();
             
             if (!doWork) break;
@@ -404,7 +401,10 @@ public final class TOMLayer extends Thread implements RequestReceiver {
                 // Sets the current consensus
                 int execId = getLastExec() + 1;
                 setInExec(execId);
-
+                if(!alreadySendKeys){
+                    execManager.getPrimary().sendThresholdSigKeys(execId);
+                    alreadySendKeys = true;
+                }
                 Decision dec = execManager.getConsensus(execId).getDecision();
 
                 // Bypass protocol if service is not replicated

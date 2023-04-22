@@ -13,6 +13,7 @@ import bftsmart.consensus.TimestampValuePair;
 import bftsmart.consensus.messages.ConsensusMessage;
 import bftsmart.consensus.messages.KeyShareMessage;
 import bftsmart.consensus.messages.MessageFactory;
+import bftsmart.consensus.messages.SigShareMessage;
 import bftsmart.consensus.roles.Backup;
 import bftsmart.consensus.roles.Primary;
 import bftsmart.reconfiguration.ServerViewController;
@@ -221,8 +222,9 @@ public class Synchronizer {
 
         int last = -1;
         byte[] lastValue = null;
-        Set<ConsensusMessage> proof = null;
-
+        Set<SigShareMessage> proof = null;
+        BigInteger n = null;
+        BigInteger e = null;
         ByteArrayInputStream bis;
         ObjectInputStream ois;
 
@@ -236,12 +238,13 @@ public class Synchronizer {
                 last = ois.readInt();
 
                 lastValue = (byte[]) ois.readObject();
-                proof = (Set<ConsensusMessage>) ois.readObject();
-
+                proof = (Set<SigShareMessage>) ois.readObject();
+                n = (BigInteger) ois.readObject();
+                e = (BigInteger) ois.readObject();
                 //TODO: Proof is missing!
             }
 
-            lastData = new CertifiedDecision(msg.getSender(), last, lastValue, proof);
+            lastData = new CertifiedDecision(msg.getSender(), last, lastValue, proof, n, e);
 
             lcManager.addLastCID(regency, lastData);
 
@@ -553,10 +556,14 @@ public class Synchronizer {
                     //byte[] decision = exec.getLearner().getDecision();
 
                     byte[] decision = cons.getDecisionEpoch().propValue;
-                    Set<ConsensusMessage> proof = cons.getDecisionEpoch().getProof();
+                        Set<SigShareMessage> proof = cons.getDecisionEpoch().getProof();
+                        BigInteger n = cons.getDecisionEpoch().getN();
+                        BigInteger e = cons.getDecisionEpoch().getE();
 
                     out.writeObject(decision);
                     out.writeObject(proof);
+                    out.writeObject(n);
+                    out.writeObject(e);
                     // TODO: WILL BE NECESSARY TO ADD A PROOF!!!
 
                 } else {
@@ -689,18 +696,20 @@ public class Synchronizer {
                 if (last > -1) cons = execManager.getConsensus(last);
                         
                 //Do I have info on my last executed consensus?
-                if (cons != null && cons.getDecisionEpoch() != null && cons.getDecisionEpoch().propValue != null) { 
+                if (cons != null && cons.getDecisionEpoch() != null && cons.getDecisionEpoch().propValue != null) {
                     //byte[] decision = exec.getLearner().getDecision();
 
 
                     byte[] decision = cons.getDecisionEpoch().propValue;
-                    Set<ConsensusMessage> proof = cons.getDecisionEpoch().getProof();
+                    Set<SigShareMessage> proof = cons.getDecisionEpoch().getProof();
+                    BigInteger n = cons.getDecisionEpoch().getN();
+                    BigInteger e = cons.getDecisionEpoch().getE();
 
-                    lastDec = new CertifiedDecision(this.controller.getStaticConf().getProcessId(), last, decision, proof);
+                    lastDec = new CertifiedDecision(this.controller.getStaticConf().getProcessId(), last, decision, proof, n, e);
                     // TODO: WILL BE NECESSARY TO ADD A PROOF!!!??
 
-                } else {                    
-                    lastDec = new CertifiedDecision(this.controller.getStaticConf().getProcessId(), last, null, null);
+                } else {
+                    lastDec = new CertifiedDecision(this.controller.getStaticConf().getProcessId(), last, null, null, null, null);
 
                     ////// THIS IS TO CATCH A BUG!!!!!
                     if (last > -1) {
@@ -721,7 +730,7 @@ public class Synchronizer {
                             logger.debug("Propose hash for cid " + last + ": " + Base64.encodeBase64String(tom.computeHash(cons.getDecisionEpoch().propValue)));
                         }
                     }
-                    
+
                 }
                 lcManager.addLastCID(regency, lastDec);
 
@@ -1038,12 +1047,12 @@ public class Synchronizer {
         // install proof of the last decided consensus
         cons = execManager.getConsensus(lastHighestCID.getCID());
         e = null;
-                
-        Set<ConsensusMessage> consMsgs = lastHighestCID.getConsMessages();
+
+        Set<SigShareMessage> consMsgs = lastHighestCID.getSigsMsgs();
         if (consMsgs == null) consMsgs = new HashSet();
-        
-        for (ConsensusMessage cm : consMsgs) {
-            
+
+        for (SigShareMessage cm : consMsgs) {
+
             if (e == null) e = cons.getEpoch(cm.getEpoch(), true, controller);
             if (e.getTimestamp() != cm.getEpoch()) {
                 logger.warn("Strange... proof of last decided consensus contains messages from more than just one epoch");
@@ -1195,7 +1204,7 @@ public class Synchronizer {
                 /****************************************7.13****************************************************************/
 
                 logger.info("Sending PREPARE message for CID " + currentCID + ", timestamp " + e.getTimestamp() + ", value " + Arrays.toString(e.propValueHash));
-                KeyShareMessage[] keyShareMessages = Thresig.generateKeys((controller.getCurrentViewN()-1) - controller.getCurrentViewF(), controller.getCurrentViewN()-1);
+                KeyShareMessage[] keyShareMessages = Thresig.generateKeys((controller.getCurrentViewN()) - controller.getCurrentViewF(), controller.getCurrentViewN(),me,lcManager.getHighestLastCID(regency).getCID() + 1);
                 BigInteger n = keyShareMessages[0].getN();
                 BigInteger ee = keyShareMessages[0].getE();
                 execManager.getPrimary().setEandN(ee,n);

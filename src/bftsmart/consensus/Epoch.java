@@ -16,11 +16,14 @@ limitations under the License.
 package bftsmart.consensus;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import bftsmart.consensus.messages.ConsensusMessage;
+import bftsmart.consensus.messages.SigShareMessage;
+import bftsmart.reconfiguration.util.thresholdsig.Thresig;
 import org.apache.commons.codec.binary.Base64;
 
 import bftsmart.reconfiguration.ServerViewController;
@@ -41,11 +44,24 @@ public class Epoch implements Serializable {
     private final int me; // Process ID
     private boolean alreadyRemoved = false; // indicates if this epoch was removed from its consensus
     public byte[] propValue = null; // proposed value
+    public SigShareMessage[] prepareVotesigs = null;
+    public SigShareMessage[] preCommitSigs = null;
+    public SigShareMessage[] commitSigs = null;
+    private boolean[] prepareVotesigsSetted = null;
+    private boolean[] preCommitSigsSetted = null;
+    private boolean[] commitSigsSetted = null;
     public TOMMessage[] deserializedPropValue = null; //utility var
     public byte[] propValueHash = null; // proposed value hash
-    public HashSet<ConsensusMessage> proof; // proof from other processes
-
+    public HashSet<SigShareMessage> proof; // threshold signature proof
+    private BigInteger n = null;   //threshold signature public key
+    private BigInteger e = null;   //threshold signature public key
     private View lastView = null;
+    private int leaderCount = 0;
+    private int leader = -1;
+
+    public boolean PreCommit = false;
+    public boolean Commit = false;
+    public boolean Decide = false;
 
     private ServerViewController controller;
 
@@ -64,11 +80,26 @@ public class Epoch implements Serializable {
 
         this.lastView = controller.getCurrentView();
         this.me = controller.getStaticConf().getProcessId();
-
-        //int[] acceptors = manager.getAcceptors();
         int n = controller.getCurrentViewN();
+        this.prepareVotesigs = new SigShareMessage[n];
+        this.preCommitSigs = new SigShareMessage[n];
+        this.commitSigs = new SigShareMessage[n];
+        this.prepareVotesigsSetted = new boolean[n];
+        this.preCommitSigsSetted = new boolean[n];
+        this.commitSigsSetted = new boolean[n];
+        Arrays.fill(prepareVotesigsSetted,false);
+        Arrays.fill(preCommitSigsSetted,false);
+        Arrays.fill(commitSigsSetted,false);
     }
-            
+
+    public int getLeaderCount() {
+        return leaderCount;
+    }
+
+    public void setLeaderCount() {
+        this.leaderCount += 1;
+    }
+
     /**
      * Set this epoch as removed from its consensus instance
      */
@@ -85,11 +116,11 @@ public class Epoch implements Serializable {
     }
 
 
-    public void addToProof(ConsensusMessage pm) {
+    public void addToProof(SigShareMessage pm) {
         proof.add(pm);
     }
-    
-    public Set<ConsensusMessage> getProof() {
+
+    public Set<SigShareMessage> getProof() {
         return proof;
     }
     /**
@@ -99,7 +130,13 @@ public class Epoch implements Serializable {
     /*public long getTimeout() {
         return this.timeout;
     }*/
+    public BigInteger getN() {
+        return n;
+    }
 
+    public BigInteger getE() {
+        return e;
+    }
     /**
      * Retrieves this epoch's timestamp
      * @return This epoch's timestamp
@@ -119,20 +156,149 @@ public class Epoch implements Serializable {
 
     /*************************** DEBUG METHODS *******************************/
 
+    public void setPrepareVotesigs(SigShareMessage msg) {
+        int p = this.controller.getCurrentViewPos(controller.getCurrentViewPos(msg.getSender()));
+        if (p >= 0&&(prepareVotesigs[p]==null|| !prepareVotesigsSetted[p])) {
+            prepareVotesigs[p] = msg;
+            prepareVotesigsSetted[p] = true;
+//            addToProof(msg);
+        }
+    }
+    public void setPreCommitSigs(SigShareMessage msg) {
+        int p = this.controller.getCurrentViewPos(controller.getCurrentViewPos(msg.getSender()));
+        if (p >= 0&&(preCommitSigs[p]==null|| !preCommitSigsSetted[p])) {
+            preCommitSigs[p] = msg;
+            preCommitSigsSetted[p] = true;
+//            addToProof(msg);
+        }
+    }
+    public void setCommitSigs(SigShareMessage msg) {
+        int p = this.controller.getCurrentViewPos(controller.getCurrentViewPos(msg.getSender()));
+        if (p >= 0&&(commitSigs[p]==null|| !commitSigsSetted[p])) {
+            commitSigs[p] = msg;
+            commitSigsSetted[p] = true;
+            addToProof(msg);
+        }
+    }
+    public void setThresholdSigPK(BigInteger n, BigInteger e) {
+        this.n = n;
+        this.e = e;
+    }
 
+    public SigShareMessage[] getPrepareVotesigs(int n) {
+        SigShareMessage[] sigShareMessages = new SigShareMessage[n];
+        int p = 0;
+        for (int i = 0; i < prepareVotesigs.length; i++) {
+            if (prepareVotesigs[i] != null&&prepareVotesigsSetted[i]) {
+                sigShareMessages[p++] = prepareVotesigs[i];
+            }
+        }
+        return sigShareMessages;
+    }
+    public SigShareMessage[] getPreCommitSigs(int n) {
+        SigShareMessage[] sigShareMessages = new SigShareMessage[n];
+        int p = 0;
+        for (int i = 0; i < preCommitSigs.length; i++) {
+            if (preCommitSigs[i] != null&&preCommitSigsSetted[i]) {
+                sigShareMessages[p++] = preCommitSigs[i];
+            }
+        }
+        return sigShareMessages;
+    }
+    public SigShareMessage[] getCommitSigs(int n) {
+        SigShareMessage[] sigShareMessages = new SigShareMessage[n];
+        int p = 0;
+        for (int i = 0; i < commitSigs.length; i++) {
+            if (commitSigs[i] != null&&commitSigsSetted[i]) {
+                sigShareMessages[p++] = commitSigs[i];
+            }
+        }
+        return sigShareMessages;
+    }
+
+    public int countPrepareSignatures(byte[] value, int l, BigInteger n) {
+        int count = 0;
+        if(n==null){
+            return count;
+        }
+        for (int i = 0; i < prepareVotesigs.length; i++) {
+
+            if (prepareVotesigs[i] != null&& Thresig.checkVerifier(value, prepareVotesigs[i], l, n) ) {//&& ThresholdSignature.checkVerifier(value, sigs[i], l, n)
+                prepareVotesigsSetted[i] = true;
+                count++;
+            } else {
+                prepareVotesigsSetted[i] = false;
+            }
+        }
+        return count;
+    }
+
+    public int countPreCommitSignatures(byte[] value, int l, BigInteger n) {
+        int count = 0;
+        if(n==null){
+            return count;
+        }
+        for (int i = 0; i < preCommitSigs.length; i++) {
+
+            if (preCommitSigs[i] != null&& Thresig.checkVerifier(value, preCommitSigs[i], l, n) ) {//&& ThresholdSignature.checkVerifier(value, sigs[i], l, n)
+                preCommitSigsSetted[i] = true;
+                count++;
+            } else {
+                preCommitSigsSetted[i] = false;
+            }
+        }
+        return count;
+    }
+
+    public int countCommitSignatures(byte[] value, int l, BigInteger n) {
+        int count = 0;
+        if(n==null){
+            return count;
+        }
+        for (int i = 0; i < commitSigs.length; i++) {
+
+            if (commitSigs[i] != null&& Thresig.checkVerifier(value, commitSigs[i], l, n) ) {//&& ThresholdSignature.checkVerifier(value, sigs[i], l, n)
+                commitSigsSetted[i] = true;
+                count++;
+            } else {
+                commitSigsSetted[i] = false;
+            }
+        }
+        return count;
+    }
 
     @Override
     public boolean equals(Object o) {
         return this == o;
     }
-    
+
     /**
      * Clear all epoch info.
      */
     public void clear() {
 
         int n = controller.getCurrentViewN();
-        
-        this.proof = new HashSet<ConsensusMessage>();
+
+        this.proof = new HashSet<SigShareMessage>();
+
+        this.prepareVotesigs = new SigShareMessage[n];
+        this.preCommitSigs = new SigShareMessage[n];
+        this.commitSigs = new SigShareMessage[n];
+        this.prepareVotesigsSetted = new boolean[n];
+        this.preCommitSigsSetted = new boolean[n];
+        this.commitSigsSetted = new boolean[n];
+        Arrays.fill(prepareVotesigsSetted,false);
+        Arrays.fill(preCommitSigsSetted,false);
+        Arrays.fill(commitSigsSetted,false);
+        this.n = null;
+        this.e = null;
+    }
+
+    public int getLeader() {
+        return leader;
+    }
+
+    public void setLeader(int leader) {
+        this.leader = leader;
     }
 }

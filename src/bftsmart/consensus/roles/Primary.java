@@ -47,30 +47,98 @@ public class Primary {
         this.factory = factory;
         this.controller = controller;
     }
-    public void deliver(SigShareMessage msg){
+    public void deliver(ConsensusMessage msg){
         processMessage(msg);
     }
-    public void processMessage(SigShareMessage msg){
-        if(cid == msg.getNumber()){
-            sigs.add(msg);
-            if(sigs.size()>controller.getQuorum()){//controller.getCurrentViewN()){//
-                SigShareMessage[] sigsArray = sigs.toArray(new SigShareMessage[0]);
-                boolean verify = Thresig.verify(value, sigsArray, sigs.size(), controller.getCurrentViewN(), this.n, this.e);
-                if(verify&&!alwaysCommit){
-                    logger.debug("Validation succeeded!");
-                    communication.send(this.controller.getCurrentViewAcceptors(), factory.createCommit(epoch.getConsensus().getId(),0,value));
-                    alwaysCommit = true;
-                }else if(!verify){
-                    logger.debug("verification failed!!!    view change...");
-                } else {
-                    logger.debug("enough signatures have been received!!!");
-                }
-            }
-        }else {
-            logger.debug("out of date message!!!");
+    public void processMessage(ConsensusMessage msg){
+        Consensus consensus = tomLayer.execManager.getConsensus(msg.getNumber());
+        Epoch epoch = consensus.getEpoch(msg.getEpoch(), controller);
+        switch (msg.getType()){
+            case MessageFactory.PREPAREVOTE:{
+                prepareVoteReceived(msg,epoch);
+            }break;
+            case MessageFactory.PRECOMMITVOTE:{
+                preCommitVoteReceived(msg,epoch);
+            }break;
+            case MessageFactory.COMMITVOTE:{
+                commitVoteReceived(msg,epoch);
+            }break;
         }
 
     }
+
+
+
+    /**
+     *  handle prepareVote
+     */
+    public void prepareVoteReceived(ConsensusMessage consensusMessage,Epoch epoch){
+        SigShareMessage msg = (SigShareMessage) consensusMessage;
+        epoch.setPrepareVotesigs(msg);
+        int count = epoch.countPrepareSignatures(value, controller.getCurrentViewN(), this.n);
+        if (count >controller.getQuorum()  && !epoch.PreCommit) {//controller.getQuorum()
+            SigShareMessage[] sigsArray = epoch.getPrepareVotesigs(count);
+            boolean verify = Thresig.verify(value, sigsArray, count, controller.getCurrentViewN(), this.n, this.e);
+            if ((verify) ) {
+                epoch.setThresholdSigPK(this.n, this.e);
+                logger.debug("Validation succeeded!");
+                communication.send(this.controller.getCurrentViewAcceptors(), factory.createPreCommit(epoch.getConsensus().getId(),0,value));
+                epoch.PreCommit = true;
+            } else if (!tomLayer.isChangingLeader()) {
+                logger.debug("verification failed!   need to view change...");
+            } else {
+                logger.debug("enough signatures have been received!");
+            }
+        }
+    }
+
+    /**
+     *  handle preCommitVote
+     */
+    public void preCommitVoteReceived(ConsensusMessage consensusMessage,Epoch epoch){
+        SigShareMessage msg = (SigShareMessage) consensusMessage;
+        epoch.setPreCommitSigs(msg);
+        int count = epoch.countPreCommitSignatures(value, controller.getCurrentViewN(), this.n);
+        if (count >controller.getQuorum()&& !epoch.Commit) {
+            SigShareMessage[] sigsArray = epoch.getPreCommitSigs(count);
+            boolean verify = Thresig.verify(value, sigsArray, count, controller.getCurrentViewN(), this.n, this.e);
+            if ((verify)) {
+                epoch.setThresholdSigPK(this.n, this.e);
+                logger.debug("Validation succeeded!");
+                communication.send(this.controller.getCurrentViewAcceptors(), factory.createCommit(epoch.getConsensus().getId(),0,value));
+                epoch.Commit = true;
+            } else if (!tomLayer.isChangingLeader()) {
+                logger.debug("verification failed!   need to view change...");
+            } else {
+                logger.debug("enough signatures have been received!");
+            }
+        }
+    }
+
+    /**
+     * handle commitVote
+     */
+    public void commitVoteReceived(ConsensusMessage consensusMessage,Epoch epoch){
+        SigShareMessage msg = (SigShareMessage) consensusMessage;
+        epoch.setCommitSigs(msg);
+        int count = epoch.countCommitSignatures(value, controller.getCurrentViewN(), this.n);
+        if (count >controller.getQuorum() && !epoch.Decide) {
+            SigShareMessage[] sigsArray = epoch.getCommitSigs(count);
+            boolean verify = Thresig.verify(value, sigsArray, count, controller.getCurrentViewN(), this.n, this.e);
+            if ((verify)) {
+                epoch.setThresholdSigPK(this.n, this.e);
+                logger.debug("Validation succeeded!");
+                communication.send(this.controller.getCurrentViewAcceptors(), factory.createDecide(epoch.getConsensus().getId(),0,value));
+                epoch.Decide = true;
+            } else if (!tomLayer.isChangingLeader()) {
+                logger.debug("verification failed!   need to view change...");
+            } else {
+                logger.debug("enough signatures have been received!");
+            }
+        }
+    }
+
+
     public void setTOMLayer(TOMLayer tomLayer){
         this.tomLayer = tomLayer;
     }
@@ -88,8 +156,8 @@ public class Primary {
         reset();
         communication.send(this.controller.getCurrentViewAcceptors(), msg);
     }
-    public void sendThresholdSigKeys(){
-        KeyShareMessage[] keyShareMessages = Thresig.generateKeys(controller.getCurrentViewN() - controller.getCurrentViewF(), controller.getCurrentViewN());
+    public void sendThresholdSigKeys(int execId){
+        KeyShareMessage[] keyShareMessages = Thresig.generateKeys(controller.getCurrentViewN() - controller.getCurrentViewF(), controller.getCurrentViewN(), me,execId);
         this.n = keyShareMessages[0].getN();
         this.e = keyShareMessages[0].getE();
         for(int i=0;i<controller.getCurrentViewN();i++){

@@ -15,7 +15,7 @@ import java.util.Set;
  * @author robin
  */
 public class ThroughputLatencyServer extends DefaultSingleRecoverable {
-    private final Logger logger = LoggerFactory.getLogger("hotstuff");
+    private final Logger logger = LoggerFactory.getLogger("bftsmart");
     private byte[] state;
     private long startTime;
     private long numRequests;
@@ -24,7 +24,7 @@ public class ThroughputLatencyServer extends DefaultSingleRecoverable {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("USAGE: hotstuff.benchmark.ThroughputLatencyServer <process id>");
+            System.out.println("USAGE: bftsmart.benchmark.ThroughputLatencyServer <process id>");
             System.exit(-1);
         }
         int processId = Integer.parseInt(args[0]);

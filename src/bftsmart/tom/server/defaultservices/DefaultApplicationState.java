@@ -16,12 +16,14 @@ limitations under the License.
 package bftsmart.tom.server.defaultservices;
 
 import bftsmart.consensus.messages.ConsensusMessage;
+import bftsmart.consensus.messages.SigShareMessage;
 import bftsmart.reconfiguration.ServerViewController;
 import bftsmart.statemanagement.ApplicationState;
 import bftsmart.tom.core.messages.TOMMessage;
 import bftsmart.tom.leaderchange.CertifiedDecision;
 import bftsmart.tom.util.BatchBuilder;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Set;
@@ -44,7 +46,7 @@ public class DefaultApplicationState implements ApplicationState {
     private CommandsInfo[] messageBatches; // batches received since the last checkpoint.
     private int lastCheckpointCID; // Consensus ID for the last checkpoint
     private byte[] logHash;
-    
+
     private int pid;
 
     /**
@@ -55,7 +57,7 @@ public class DefaultApplicationState implements ApplicationState {
      * @param stateHash Hash of the state associated with the last checkpoint
      */
     public DefaultApplicationState(CommandsInfo[] messageBatches, int lastCheckpointCID, int lastCID, byte[] state, byte[] stateHash, int pid) {
-       
+
         this.messageBatches = messageBatches; // batches received since the last checkpoint.
         this.lastCheckpointCID = lastCheckpointCID; // Consensus ID for the last checkpoint
         this.lastCID = lastCID; // Consensus ID for the last messages batch delivered to the application
@@ -66,8 +68,8 @@ public class DefaultApplicationState implements ApplicationState {
     }
 
     public DefaultApplicationState(CommandsInfo[] messageBatches, byte[] logHash, int lastCheckpointCID, int lastCID, byte[] state, byte[] stateHash, int pid) {
-    	this(messageBatches, lastCheckpointCID, lastCID, state, stateHash, pid);
-    	this.logHash = logHash;
+        this(messageBatches, lastCheckpointCID, lastCID, state, stateHash, pid);
+        this.logHash = logHash;
     }
 
     /**
@@ -83,8 +85,8 @@ public class DefaultApplicationState implements ApplicationState {
         this.hasState = false;
         this.pid = -1;
     }
-    
-    
+
+
     @Override
     public void setSerializedState(byte[] state) {
         this.state = state;
@@ -94,7 +96,7 @@ public class DefaultApplicationState implements ApplicationState {
     public byte[] getSerializedState() {
         return state;
     }
-      
+
     /**
      * Indicates if the TransferableState object has a valid state
      * @return true if it has a valid state, false otherwise
@@ -113,7 +115,7 @@ public class DefaultApplicationState implements ApplicationState {
     public int getLastCID() {
         return lastCID;
     }
-    
+
     /**
      * Retrieves the certified decision for the last consensus present in this object
      * @param controller
@@ -123,24 +125,26 @@ public class DefaultApplicationState implements ApplicationState {
     public CertifiedDecision getCertifiedDecision(ServerViewController controller) {
         CommandsInfo ci = getMessageBatch(getLastCID());
         if (ci != null && ci.msgCtx[0].getProof() != null) { // do I have a proof for the consensus?
-            
-            Set<ConsensusMessage> proof = ci.msgCtx[0].getProof();
+
+            Set<SigShareMessage> proof = ci.msgCtx[0].getProof();
+            BigInteger n = ci.msgCtx[0].getN();
+            BigInteger e = ci.msgCtx[0].getE();
             LinkedList<TOMMessage> requests = new LinkedList<>();
-            
+
             //Recreate all TOMMessages ordered in the consensus
             for (int i = 0; i < ci.commands.length; i++) {
-                
+
                 requests.add(ci.msgCtx[i].recreateTOMMessage(ci.commands[i]));
-                
+
             }
-            
+
             //Serialize the TOMMessages to re-create the proposed value
             BatchBuilder bb = new BatchBuilder(0);
             byte[] value = bb.makeBatch(requests, ci.msgCtx[0].getNumOfNonces(),
                     ci.msgCtx[0].getSeed(), ci.msgCtx[0].getTimestamp(), controller.getStaticConf().getUseSignatures() == 1);
-            
+
             //Assemble and return the certified decision
-            return new CertifiedDecision(pid, getLastCID(), value, proof);
+            return new CertifiedDecision(pid, getLastCID(), value, proof, n, e);
         }
         else return null; // there was no proof for the consensus
     }
@@ -169,7 +173,7 @@ public class DefaultApplicationState implements ApplicationState {
     public void setState(byte[] state) {
         this.state = state;
     }
-    
+
     /**
      * Retrieves all batches of messages
      * @return Batch of messages
@@ -179,7 +183,7 @@ public class DefaultApplicationState implements ApplicationState {
     }
 
     public void setMessageBatches(CommandsInfo[] messageBatches) {
-    	this.messageBatches = messageBatches;
+        this.messageBatches = messageBatches;
     }
 
     /**
@@ -221,9 +225,9 @@ public class DefaultApplicationState implements ApplicationState {
                     //System.out.println("[DefaultApplicationState] returing FALSE2!");
                     return false;
                 }
-                
+
                 for (int i = 0; i < this.messageBatches.length; i++) {
-                    
+
                     if (this.messageBatches[i] == null && tState.messageBatches[i] != null) {
                         //System.out.println("[DefaultApplicationState] returing FALSE3!");
                         return false;
@@ -233,9 +237,9 @@ public class DefaultApplicationState implements ApplicationState {
                         //System.out.println("[DefaultApplicationState] returing FALSE4!");
                         return false;
                     }
-                    
+
                     if (!(this.messageBatches[i] == null && tState.messageBatches[i] == null) &&
-                        (!this.messageBatches[i].equals(tState.messageBatches[i]))) {
+                            (!this.messageBatches[i].equals(tState.messageBatches[i]))) {
                         //System.out.println("[DefaultApplicationState] returing FALSE5!" + (this.messageBatches[i] == null) + " " + (tState.messageBatches[i] == null));
                         return false;
                     }

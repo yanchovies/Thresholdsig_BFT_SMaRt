@@ -31,7 +31,7 @@ public class EVThroughputLatencyClient {
                     "<num clients> <number of operations per client> <request size>");// <isWrite?> <measurement leader?>
             System.exit(-1);
         }
-        random.setSeed(1);
+        random.setSeed(123);
 
         initialClientId = Integer.parseInt(args[0]);
         int numClients = Integer.parseInt(args[1]);
@@ -133,20 +133,41 @@ public class EVThroughputLatencyClient {
                             break;
                         case 3:
                             // booking a vehicle
-                            int randomVehicleIndex = random.nextInt(registeredVehicles.size());
-                            int randomUserIndex = random.nextInt(registeredUsers.size());
+                            String idOfVehicle;
+                            if (registeredVehicles.size() == 0) {
+                                idOfVehicle = String.valueOf(100000000 + random.nextInt(899999999));
+                            } else {
+                                int randomVehicleIndex = random.nextInt(registeredVehicles.size());
+                                idOfVehicle = registeredVehicles.get(randomVehicleIndex);
+                            }
 
-                            String idOfVehicle = registeredVehicles.get(randomVehicleIndex);
-                            String idOfUser = registeredUsers.get(randomUserIndex);
+                            String idOfUser;
+                            if (registeredUsers.size() == 0) {
+                                idOfUser = String.valueOf(100000000 + random.nextInt(899999999));
+                            } else {
+                                int randomUserIndex = random.nextInt(registeredUsers.size());
+                                idOfUser = registeredUsers.get(randomUserIndex);
+                            }
+
                             bookVehicle(idOfUser, idOfVehicle);
                             break;
                         case 4:
                             // returning a vehicle
-                            int randomVehicleIndex1 = random.nextInt(registeredVehicles.size());
-                            int randomUserIndex1 = random.nextInt(registeredUsers.size());
+                            String idOfVehicle1;
+                            if (registeredVehicles.size() == 0) {
+                                idOfVehicle1 = String.valueOf(100000000 + random.nextInt(899999999));
+                            } else {
+                                int randomVehicleIndex1 = random.nextInt(registeredVehicles.size());
+                                idOfVehicle1 = registeredVehicles.get(randomVehicleIndex1);
+                            }
 
-                            String idOfVehicle1 = registeredVehicles.get(randomVehicleIndex1);
-                            String idOfUser1 = registeredUsers.get(randomUserIndex1);
+                            String idOfUser1;
+                            if (registeredUsers.size() == 0) {
+                                idOfUser1 = String.valueOf(100000000 + random.nextInt(899999999));
+                            } else {
+                                int randomUserIndex1 = random.nextInt(registeredUsers.size());
+                                idOfUser1 = registeredUsers.get(randomUserIndex1);
+                            }
 
                             float randomDistance = 1 + random.nextInt(100 + 1);
                             float randomDuration = 1 + random.nextInt(100 + 1);
@@ -154,11 +175,22 @@ public class EVThroughputLatencyClient {
                             break;
                         case 5:
                             // dispute
-                            int randomVehicleIndex2 = random.nextInt(registeredVehicles.size());
-                            int randomUserIndex2 = random.nextInt(registeredUsers.size());
+                            String idOfVehicle2;
+                            if (registeredVehicles.size() == 0) {
+                                idOfVehicle2 = String.valueOf(100000000 + random.nextInt(899999999));
+                            } else {
+                                int randomVehicleIndex2 = random.nextInt(registeredVehicles.size());
+                                idOfVehicle2 = registeredVehicles.get(randomVehicleIndex2);
+                            }
 
-                            String idOfVehicle2 = registeredVehicles.get(randomVehicleIndex2);
-                            String idOfUser2 = registeredUsers.get(randomUserIndex2);
+                            String idOfUser2;
+                            if (registeredUsers.size() == 0) {
+                                idOfUser2 = String.valueOf(100000000 + random.nextInt(899999999));
+                            } else {
+                                int randomUserIndex2 = random.nextInt(registeredUsers.size());
+                                idOfUser2 = registeredUsers.get(randomUserIndex2);
+                            }
+
                             dispute(idOfVehicle2, idOfUser2);
                             break;
                     }

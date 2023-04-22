@@ -16,22 +16,43 @@ import bftsmart.tom.MessageContext;
 import bftsmart.tom.ServiceReplica;
 import bftsmart.tom.server.defaultservices.DefaultSingleRecoverable;
 
+//import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import bftsmart.tom.MessageContext;
+import bftsmart.tom.ServiceReplica;
+import bftsmart.tom.server.defaultservices.DefaultSingleRecoverable;
+
+import java.nio.ByteBuffer;
+import java.util.HashSet;
+import java.util.Set;
+
 import java.lang.Math;
 
-public class EVserver extends DefaultSingleRecoverable{
+import java.util.Random;
+
+public class EVThroughputLatencyServer extends DefaultSingleRecoverable{
     private Map<String, Vehicle> vehiclesRegistered;
     // private Map<String, Integer> usersRegistered;
     private Map<String, User> usersRegistered;
     private Logger logger;
 
-    public EVserver(int id) {
+    private byte[] state;
+    private long startTime;
+    private long numRequests;
+    private final Set<Integer> senders;
+    private double maxThroughput;
+
+    //private Random random;
+
+    public EVThroughputLatencyServer(int id) {
+
         vehiclesRegistered = new HashMap<>();
 
         usersRegistered = new HashMap<>();
 
-        // random = new Random();
+        senders = new HashSet<>(1000);
 
-        logger = Logger.getLogger(EVserver.class.getName());
+        logger = Logger.getLogger(EVThroughputLatencyServer.class.getName());
         new ServiceReplica(id, this, this);
     }
 
@@ -40,15 +61,17 @@ public class EVserver extends DefaultSingleRecoverable{
             System.out.println("Usage: demo.EVsharing.EVserver <server id>");
             System.exit(-1);
         }
-        // random.setSeed(5);
-        new EVserver(Integer.parseInt(args[0]));
+        new EVThroughputLatencyServer(Integer.parseInt(args[0]));
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public byte[] appExecuteOrdered(byte[] command, MessageContext msgCtx) {
+
         Random random = new Random();
         random.setSeed(1234);
+        numRequests++;
+        senders.add(msgCtx.getSender());
         byte[] reply = null;
         boolean hasReply = false;
         try (ByteArrayInputStream byteIn = new ByteArrayInputStream(command);
@@ -91,18 +114,22 @@ public class EVserver extends DefaultSingleRecoverable{
                             if (!vehicle1.getIsAvailable()) {
                                 objOut.writeObject("Not possible. Vehicle with the vehicle Id " + vehicleID + " is already booked.");
                             } else {
-                                vehicle1.setIsAvailable(false);
-                                vehicle1.setCurrentUserID(userID);
+                                if (usersRegistered.get(userID).getUserBalance() < vehicle1.getDepositPrice()) {
+                                    objOut.writeObject("Not possible. User with the user Id " + userID + " does not have enough balance.");
+                                } else {
+                                    vehicle1.setIsAvailable(false);
+                                    vehicle1.setCurrentUserID(userID);
 
-                                // producing a deposit payment and giving an access code for the vehicle
-                                User user1 = usersRegistered.get(userID);
-                                user1.setCurrentVehicleAccessCode(vehicle1.getVehicleAccessCode());
-                                user1.setUserBalance(user1.getUserBalance() - vehicle1.getDepositPrice());
-                                usersRegistered.put(userID, user1);
-                                vehicle1.setVehicleOwnerBalance(vehicle1.getVehicleOwnerBalance() + vehicle1.getDepositPrice());
+                                    // producing a deposit payment and giving an access code for the vehicle
+                                    User user1 = usersRegistered.get(userID);
+                                    user1.setCurrentVehicleAccessCode(vehicle1.getVehicleAccessCode());
+                                    user1.setUserBalance(user1.getUserBalance() - vehicle1.getDepositPrice());
+                                    usersRegistered.put(userID, user1);
+                                    vehicle1.setVehicleOwnerBalance(vehicle1.getVehicleOwnerBalance() + vehicle1.getDepositPrice());
 
-                                vehiclesRegistered.put(vehicleID, vehicle1);
-                                objOut.writeObject("The vehicle with the vehicle Id " + vehicleID + " is now successfully booked. The current user of the vehicle is " + vehiclesRegistered.get(vehicleID).getCurrentUserID());
+                                    vehiclesRegistered.put(vehicleID, vehicle1);
+                                    objOut.writeObject("The vehicle with the vehicle Id " + vehicleID + " is now successfully booked. The current user of the vehicle is " + vehiclesRegistered.get(vehicleID).getCurrentUserID());
+                                }
                             }
                         }
                     }
@@ -217,6 +244,7 @@ public class EVserver extends DefaultSingleRecoverable{
         } catch (IOException | ClassNotFoundException e) {
             logger.log(Level.SEVERE, "Ocurred during EV operation execution", e);
         }
+        printMeasurement();
         return reply;
     }
 
@@ -226,6 +254,21 @@ public class EVserver extends DefaultSingleRecoverable{
         byte[] reply = null;
 
         return reply;
+    }
+
+    private void printMeasurement() {
+        long currentTime = System.nanoTime();
+        double deltaTime = (currentTime - startTime) / 1_000_000_000.0;
+        if ((int) (deltaTime / 2) > 0) {
+            long delta = currentTime - startTime;
+            double throughput = numRequests / deltaTime;
+            if (throughput > maxThroughput)
+                maxThroughput = throughput;
+            System.out.println("M:(clients[#]|requests[#]|delta[ns]|throughput[ops/s], max[ops/s])>("+senders.size()+"|"+numRequests+"|"+delta+"|"+throughput+"|"+maxThroughput+")");
+            numRequests = 0;
+            startTime = currentTime;
+            senders.clear();
+        }
     }
 
     @Override

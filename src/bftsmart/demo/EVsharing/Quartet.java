@@ -1,6 +1,5 @@
 package bftsmart.demo.EVsharing;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -10,7 +9,6 @@ import java.io.Serializable;
 
 public class Quartet<A, B, C, D> implements Serializable {
 
-    @Serial
     private static final long serialVersionUID = 3L;
     private A first;
     private B second;

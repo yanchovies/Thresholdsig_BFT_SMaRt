@@ -26,6 +26,7 @@ import java.util.Set;
 
 import bftsmart.consensus.TimestampValuePair;
 import bftsmart.consensus.messages.ConsensusMessage;
+import bftsmart.consensus.messages.SigShareMessage;
 import bftsmart.reconfiguration.ServerViewController;
 import bftsmart.tom.core.TOMLayer;
 import bftsmart.tom.core.messages.TOMMessage;
@@ -53,7 +54,7 @@ import org.slf4j.LoggerFactory;
 public class LCManager {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     //timestamp info
     private int lastreg;
     private int nextreg;
@@ -63,7 +64,7 @@ public class LCManager {
 
     //requests received in STOP messages
     private List<TOMMessage> requestsFromSTOP = null;
-    
+
     //data structures for info in stop, sync and catch-up messages
     private HashMap<Integer,HashSet<Integer>> stops;
     private HashMap<Integer,HashSet<CertifiedDecision>> lastCIDs;
@@ -73,11 +74,11 @@ public class LCManager {
     private ServerViewController SVController;
     private MessageDigest md;
     private TOMLayer tomLayer;
-    
+
     private int currentLeader;
     //private Cipher cipher;
     private Mac mac;
-    
+
     /**
      * Constructor
      *
@@ -100,14 +101,14 @@ public class LCManager {
         try {
             this.mac = TOMUtil.getMacFactory();
         } catch (NoSuchAlgorithmException /*| NoSuchPaddingException*/ ex) {
-            logger.error("Could not instantiate MAC algorithm",ex);
+            System.out.println("Could not instantiate MAC algorithm"+ex);
         }
 
     }
-    
+
     /**
      * Deterministically elects a new leader, based current leader and membership
-     * 
+     *
      * @return The new leader
      */
     public int getNewLeader() {
@@ -115,24 +116,24 @@ public class LCManager {
         int[] proc = SVController.getCurrentViewProcesses();
         int minProc = proc[0];
         int maxProc = proc[0];
-                    
+
         for (int p : proc) {
             if (p < minProc) minProc = p;
             if (p > maxProc) maxProc = p;
         }
- 
-        
+
+
         do {
             currentLeader++;
             if (currentLeader > maxProc) {
 
-                currentLeader = minProc;    
+                currentLeader = minProc;
             }
         } while(!SVController.isCurrentViewMember(currentLeader));
-        
+
         return currentLeader;
     }
-    
+
     /**
      * Informs the object of who is the current leader
      * @param leader The current leader
@@ -140,7 +141,7 @@ public class LCManager {
     public void setNewLeader(int leader) {
         currentLeader = leader;
     }
-    
+
     /**
      * This is meant to keep track of timed out requests in this replica
      *
@@ -157,7 +158,7 @@ public class LCManager {
     public List<TOMMessage> getCurrentRequestTimedOut() {
         return currentRequestTimedOut;
     }
-    
+
     /**
      * Discard timed out requests in this replica
      */
@@ -174,7 +175,7 @@ public class LCManager {
     public void addRequestsFromSTOP(TOMMessage[] requestsFromSTOP) {
         if (this.requestsFromSTOP == null)
             this.requestsFromSTOP = new LinkedList<>();
-        
+
         for (TOMMessage m : requestsFromSTOP)
             this.requestsFromSTOP.add(m);
     }
@@ -186,16 +187,16 @@ public class LCManager {
     public List<TOMMessage> getRequestsFromSTOP() {
         return requestsFromSTOP;
     }
-    
+
     /**
      * Discard requests received in STOP messages
-     */    
+     */
     public void clearRequestsFromSTOP() {
         if (requestsFromSTOP != null) requestsFromSTOP.clear();
         requestsFromSTOP = null;
     }
-    
-    
+
+
     /**
      * Set the previous regency
      * @param lastreg current regency
@@ -214,7 +215,6 @@ public class LCManager {
 
     /**
      * Set the next regency
-     * @param nextts next regency
      */
     public void setNextReg(int nextreg) {
         this.nextreg = nextreg;
@@ -242,7 +242,6 @@ public class LCManager {
 
     /**
      * Discard information about STOP messages up to specified regency
-     * @param ts timestamp up to which to discard messages
      */
     public void removeStops(int regency) {
         Integer[] keys = new Integer[stops.keySet().size()];
@@ -320,7 +319,6 @@ public class LCManager {
 
     /**
      * Keep collect from an incoming SYNC message
-     * @param ts the current regency
      * @param signedCollect the signed collect data
      */
     public void addCollect(int regency, SignedObject signedCollect) {
@@ -330,7 +328,7 @@ public class LCManager {
         c.add(signedCollect);
         collects.put(regency, c);
     }
-    
+
     /**
      * Discard collect information up to the given regency
      * @param regency Regency up to which to discard information
@@ -344,7 +342,7 @@ public class LCManager {
             if (keys[i] <= regency) collects.remove(keys[i]);
         }
     }
-    
+
     /**
      * Get the quantity of stored collect information
      * @param regency Regency to be considered
@@ -380,24 +378,24 @@ public class LCManager {
      *
      * @param collects the collect data to which to apply the predicate.
      * @return See Cachin's 'Yet Another Visit to Paxos' (April 2011), page 11
-     * 
+     *
      * In addition, see pages 252 and 253 from "Introduction to Reliable and Secure Distributed Programming"
      */
     public boolean sound(HashSet<CollectData> collects) {
 
         logger.debug("I collected the context from " + collects.size() + " replicas");
-        
+
         if (collects == null) return false;
-        
+
         HashSet<Integer> timestamps = new HashSet<Integer>();
         HashSet<byte[]> values = new HashSet<byte[]>();
 
         for (CollectData c : collects) { // organize all existing timestamps and values separately
-            
+
             logger.debug("Context for replica "+c.getPid()+": CID["+c.getCid()+"] WRITESET["+c.getWriteSet()+"] (VALTS,VAL)[" + c.getQuorumWrites() +"]");
-            
+
             timestamps.add(c.getQuorumWrites().getTimestamp()); //store timestamp received from a Byzatine quorum of WRITES
-            
+
             // store value received from a Byzantine quorum of WRITES, unless it is an empty value
             if (!Arrays.equals(c.getQuorumWrites().getValue(), new byte[0])) {
                 boolean insert = true; // this loop avoids putting duplicated values in the set
@@ -444,9 +442,9 @@ public class LCManager {
         }
 
         logger.debug("No timestamp/value pair passed on the BIND predicate");
-        
+
         boolean unbound = unbound(collects);
-        
+
         if (unbound) {
             logger.debug("Predicate UNBOUND is true for N-F replicas");
             logger.debug("Predicate SOUND is true for the for context collected from N-F replicas");
@@ -463,7 +461,7 @@ public class LCManager {
      * @param value the value to search for
      * @param collects the collect data to which to apply the predicate.
      * @return See Cachin's 'Yet Another Visit to Paxos' (April 2011), page 11
-     * 
+     *
      * In addition, see pages 252 and 253 from "Introduction to Reliable and Secure Distributed Programming"
      */
     public boolean binds(int timestamp, byte[] value, HashSet<CollectData> collects) {
@@ -472,7 +470,7 @@ public class LCManager {
             logger.debug("Received null objects, returning false");
             return false;
         }
-        
+
         if (!(collects.size() >= (SVController.getCurrentViewN() - SVController.getCurrentViewF()))) {
             logger.debug("Less than N-F contexts collected from replicas, returning false");
             return false;
@@ -489,7 +487,7 @@ public class LCManager {
      * with a timestamp greater or equal to zero
      * @param collects Set of collects from which to determine the value
      * @return The bind value
-     * 
+     *
      * See Cachin's 'Yet Another Visit to Paxos' (April 2011), page 11
      * Also, see pages 252 and 253 from "Introduction to Reliable and Secure Distributed Programming"
      */
@@ -503,7 +501,7 @@ public class LCManager {
         for (CollectData c : collects) { // organize all existing timestamps and values separately
 
             timestamps.add(c.getQuorumWrites().getTimestamp()); //store timestamp received from a Byzantine quorum of writes
-            
+
             // store value received from a Byzantine quorum of writes, unless it is an empty value
             if (!Arrays.equals(c.getQuorumWrites().getValue(), new byte[0])) {
                 boolean insert = true; // this loops avoids putting duplicated values in the set
@@ -537,7 +535,7 @@ public class LCManager {
             for (byte[] v : values) {
 
                 if (r >= 0 && binds(r, v, collects)) { // do we have a value that satisfys the predicate?
-                    
+
                     // as we are handling hashes, we have to find the original value
                     for (CollectData c : collects) {
                         for (TimestampValuePair rv : c.getWriteSet()) {
@@ -561,7 +559,7 @@ public class LCManager {
      *
      * @param collects the collect data to which to apply the predicate.
      * @return See Cachin's 'Yet Another Visit to Paxos' (April 2011), page 11
-     * 
+     *
      * In addition, see page 253 from "Introduction to Reliable and Secure Distributed Programming"
      */
     public boolean unbound(HashSet<CollectData> collects) {
@@ -585,10 +583,10 @@ public class LCManager {
             unbound = count > ((SVController.getCurrentViewN() + SVController.getCurrentViewF()) / 2);
         }
         else {
-        	unbound = count > ((SVController.getCurrentViewN()) / 2);
+            unbound = count > ((SVController.getCurrentViewN()) / 2);
         }
         return unbound;
-        
+
     }
 
     /**
@@ -599,7 +597,7 @@ public class LCManager {
      * @param value the value to search for
      * @param collects the collect data to which to apply the predicate.
      * @return See Cachin's 'Yet Another Visit to Paxos' (April 2011), pages 10-11
-     * 
+     *
      * In addition, see pages 252 and 253 from "Introduction to Reliable and Secure Distributed Programming"
      */
     public boolean quorumHighest(int timestamp, byte[] value, HashSet<CollectData> collects) {
@@ -619,16 +617,16 @@ public class LCManager {
         }
 
         if (appears) logger.debug("timestamp/value pair (" + timestamp + " , " + Arrays.toString(value) + ") appears in at least one replica context");
-        
+
         int count = 0;
         for (CollectData c : collects) {
 
-            //bftsmart.tom.util.Logger.println("\t\t[QUORUM HIGHEST] ts' < ts : " + (c.getQuorumWrites().getTimestamp() < timestamp));
-            //bftsmart.tom.util.Logger.println("\t\t[QUORUM HIGHEST] ts' = ts && val' = val : " + (c.getQuorumWrites().getTimestamp() == timestamp && Arrays.equals(value, c.getQuorumWrites().getValue())));
-            
+            //hotstuff.tom.util.Logger.println("\t\t[QUORUM HIGHEST] ts' < ts : " + (c.getQuorumWrites().getTimestamp() < timestamp));
+            //hotstuff.tom.util.Logger.println("\t\t[QUORUM HIGHEST] ts' = ts && val' = val : " + (c.getQuorumWrites().getTimestamp() == timestamp && Arrays.equals(value, c.getQuorumWrites().getValue())));
+
             if ((c.getQuorumWrites().getTimestamp() < timestamp)
                     || (c.getQuorumWrites().getTimestamp() == timestamp && Arrays.equals(value, c.getQuorumWrites().getValue())))
-                        count++;
+                count++;
 
         }
 
@@ -651,7 +649,7 @@ public class LCManager {
      * @param value the value to search for
      * @param collects the collect data to which to apply the predicate.
      * @return See Cachin's 'Yet Another Visit to Paxos' (April 2011), page 11
-     * 
+     *
      * In addition, see page 253 from "Introduction to Reliable and Secure Distributed Programming"
      */
     public boolean certifiedValue(int timestamp, byte[] value, HashSet<CollectData> collects) {
@@ -665,8 +663,8 @@ public class LCManager {
 
             for (TimestampValuePair pv : c.getWriteSet()) {
 
-//                bftsmart.tom.util.Logger.println("\t\t[CERTIFIED VALUE] " + pv.getTimestamp() + "  >= " + timestamp);
-//                bftsmart.tom.util.Logger.println("\t\t[CERTIFIED VALUE] " + Arrays.toString(value) + "  == " + Arrays.toString(pv.getValue()));
+//                hotstuff.tom.util.Logger.println("\t\t[CERTIFIED VALUE] " + pv.getTimestamp() + "  >= " + timestamp);
+//                hotstuff.tom.util.Logger.println("\t\t[CERTIFIED VALUE] " + Arrays.toString(value) + "  == " + Arrays.toString(pv.getValue()));
                 if (pv.getTimestamp() >= timestamp && Arrays.equals(value, pv.getHashedValue()))
                     count++;
             }
@@ -697,7 +695,7 @@ public class LCManager {
         if (c == null) return null;
 
         return normalizeCollects(getSignedCollects(c), cid, regency);
-        
+
     }
 
     /**
@@ -730,7 +728,7 @@ public class LCManager {
                     colls.add(c);
                 }
             } catch (IOException | ClassNotFoundException ex) {
-                logger.error("Error processing collect data", ex);
+                System.out.println("Error processing collect data"+ex);
             }
         }
 
@@ -779,110 +777,118 @@ public class LCManager {
      */
     public CertifiedDecision getHighestLastCID(int ts) {
 
-        CertifiedDecision highest = new CertifiedDecision(-2, -2, null, null);
+        CertifiedDecision highest = new CertifiedDecision(-2, -2, null, null, null, null);
 
         HashSet<CertifiedDecision> lasts = lastCIDs.get(ts);
 
         if (lasts == null) return null;
-       
+
         for (CertifiedDecision l : lasts) {
 
             //TODO: CHECK OF THE PROOF IS MISSING!!!!
-            if (tomLayer.controller.getStaticConf().isBFT() && hasValidProof(l) && l.getCID() > highest.getCID()) 
-                    highest = l;
+            if (tomLayer.controller.getStaticConf().isBFT() && hasValidProof(l) && l.getCID() > highest.getCID())
+                highest = l;
             else if(l.getCID() > highest.getCID()){
-                    highest = l;
-             }
+                highest = l;
+            }
         }
 
         return highest;
     }
-    
+
     // verifies is a proof associated with a decided value is valid
     public boolean hasValidProof(CertifiedDecision cDec) {
-        
         if (cDec.getCID() == -1) return true; // If the last CID is -1 it means the replica
-                                             // did not complete any consensus and cannot have
-                                             // any proof
-        
-        byte[] hashedValue = md.digest(cDec.getDecision());
-        Set<ConsensusMessage> ConsensusMessages = cDec.getConsMessages();
-        int myId = tomLayer.controller.getStaticConf().getProcessId();
-        int certificateCurrentView = (2*tomLayer.controller.getCurrentViewF()) + 1;
-        int certificateLastView = -1;
-        if (tomLayer.controller.getLastView() != null) certificateLastView = (2*tomLayer.controller.getLastView().getF()) + 1;
-        int countValid = 0;
-        SecretKey secretKey = null;
-        PublicKey pubKey = null;
-        
-        HashSet<Integer> alreadyCounted = new HashSet<>(); //stores replica IDs that were already counted
-            
-        for (ConsensusMessage consMsg : ConsensusMessages) {
-            
-            ConsensusMessage cm = new ConsensusMessage(consMsg.getType(),consMsg.getNumber(),
-                    consMsg.getEpoch(), consMsg.getSender(), consMsg.getValue());
+        // did not complete any consensus and cannot have
+        // any proof
 
-            ByteArrayOutputStream bOut = new ByteArrayOutputStream(248);
-            try {
-                new ObjectOutputStream(bOut).writeObject(cm);
-            } catch (IOException ex) {
-                logger.error("Could not serialize message",ex);
-            }
+//        byte[] hashedValue = md.digest(cDec.getDecision());
+        Set<SigShareMessage> sigShareMessages = cDec.getSigsMsgs();
 
-            byte[] data = bOut.toByteArray();
+        return true;//Thresig.verify(cDec.getDecision(), sigShareMessages.toArray(new SigShareMessage[0]), sigShareMessages.size(), tomLayer.controller.getCurrentViewN(), cDec.getN(), cDec.getE());
 
-            if (consMsg.getProof() instanceof HashMap) { // Certificate is made of MAC vector
-                
-                logger.debug("Proof made of MAC vector");
-            
-                HashMap<Integer, byte[]> macVector = (HashMap<Integer, byte[]>) consMsg.getProof();
-                               
-                byte[] recvMAC = macVector.get(myId);
-
-                byte[] myMAC = null;
-                                
-                secretKey = tomLayer.getCommunication().getServersConn().getSecretKey(consMsg.getSender());
-                try {
-                    this.mac.init(secretKey);                   
-                   myMAC = this.mac.doFinal(data);
-                } catch (InvalidKeyException ex) {
-                    logger.error("Could not compute MAC",ex);
-                }
-            
-                if (recvMAC != null && myMAC != null && Arrays.equals(recvMAC, myMAC) &&
-                        Arrays.equals(consMsg.getValue(), hashedValue) &&
-                        consMsg.getNumber() == cDec.getCID() && !alreadyCounted.contains(consMsg.getSender())) {
-                
-                    alreadyCounted.add(consMsg.getSender());
-                    countValid++;
-                }
-            } else if (consMsg.getProof() instanceof byte[]) { // certificate is made of signatures
-                
-                logger.debug("Proof made of Signatures");
-                pubKey = SVController.getStaticConf().getPublicKey(consMsg.getSender());
-                   
-                byte[] signature = (byte[]) consMsg.getProof();
-                            
-                if (TOMUtil.verifySignature(pubKey, data, signature) && !alreadyCounted.contains(consMsg.getSender())) {
-                    
-                    alreadyCounted.add(consMsg.getSender());
-                    countValid++;
-                }
-   
-            } else {
-                logger.debug("Proof is message is invalid");
-            }
-        }
-        
-        // If proofs were made of signatures, use a certificate correspondent to last view
-        // otherwise, use certificate for the current view
-        // To understand why this is important, check the comments in Acceptor.computeWrite()
-                
-        if (certificateLastView != -1 && pubKey != null)
-            logger.debug("Computing certificate based on previous view");
-        
-        //return countValid >= certificateCurrentView;
-        return countValid >=  (certificateLastView != -1 && pubKey != null ? certificateLastView : certificateCurrentView);
+//        if (cDec.getCID() == -1) return true; // If the last CID is -1 it means the replica
+//                                             // did not complete any consensus and cannot have
+//                                             // any proof
+//
+//        byte[] hashedValue = md.digest(cDec.getDecision());
+//        Set<ConsensusMessage> ConsensusMessages = cDec.getConsMessages();
+//        int myId = tomLayer.controller.getStaticConf().getProcessId();
+//        int certificateCurrentView = (2*tomLayer.controller.getCurrentViewF()) + 1;
+//        int certificateLastView = -1;
+//        if (tomLayer.controller.getLastView() != null) certificateLastView = (2*tomLayer.controller.getLastView().getF()) + 1;
+//        int countValid = 0;
+//        SecretKey secretKey = null;
+//        PublicKey pubKey = null;
+//
+//        HashSet<Integer> alreadyCounted = new HashSet<>(); //stores replica IDs that were already counted
+//
+//        for (ConsensusMessage consMsg : ConsensusMessages) {
+//
+//            ConsensusMessage cm = new ConsensusMessage(consMsg.getType(),consMsg.getNumber(),
+//                    consMsg.getEpoch(), consMsg.getSender(), consMsg.getValue());
+//
+//            ByteArrayOutputStream bOut = new ByteArrayOutputStream(248);
+//            try {
+//                new ObjectOutputStream(bOut).writeObject(cm);
+//            } catch (IOException ex) {
+//                System.out.println("Could not serialize message"+ex);
+//            }
+//
+//            byte[] data = bOut.toByteArray();
+//
+//            if (consMsg.getProof() instanceof HashMap) { // Certificate is made of MAC vector
+//
+//                logger.debug("Proof made of MAC vector");
+//
+//                HashMap<Integer, byte[]> macVector = (HashMap<Integer, byte[]>) consMsg.getProof();
+//
+//                byte[] recvMAC = macVector.get(myId);
+//
+//                byte[] myMAC = null;
+//
+//                secretKey = tomLayer.getCommunication().getServersConn().getSecretKey(consMsg.getSender());
+//                try {
+//                    this.mac.init(secretKey);
+//                   myMAC = this.mac.doFinal(data);
+//                } catch (InvalidKeyException ex) {
+//                    System.out.println("Could not compute MAC"+ex);
+//                }
+//
+//                if (recvMAC != null && myMAC != null && Arrays.equals(recvMAC, myMAC) &&
+//                        Arrays.equals(consMsg.getValue(), hashedValue) &&
+//                        consMsg.getNumber() == cDec.getCID() && !alreadyCounted.contains(consMsg.getSender())) {
+//
+//                    alreadyCounted.add(consMsg.getSender());
+//                    countValid++;
+//                }
+//            } else if (consMsg.getProof() instanceof byte[]) { // certificate is made of signatures
+//
+//                logger.debug("Proof made of Signatures");
+//                pubKey = SVController.getStaticConf().getPublicKey(consMsg.getSender());
+//
+//                byte[] signature = (byte[]) consMsg.getProof();
+//
+//                if (TOMUtil.verifySignature(pubKey, data, signature) && !alreadyCounted.contains(consMsg.getSender())) {
+//
+//                    alreadyCounted.add(consMsg.getSender());
+//                    countValid++;
+//                }
+//
+//            } else {
+//                logger.debug("Proof is message is invalid");
+//            }
+//        }
+//
+//        // If proofs were made of signatures, use a certificate correspondent to last view
+//        // otherwise, use certificate for the current view
+//        // To understand why this is important, check the comments in Acceptor.computeWrite()
+//
+//        if (certificateLastView != -1 && pubKey != null)
+//            logger.debug("Computing certificate based on previous view");
+//
+//        //return countValid >= certificateCurrentView;
+//        return countValid >=  (certificateLastView != -1 && pubKey != null ? certificateLastView : certificateCurrentView);
     }
 
     /**
@@ -911,35 +917,35 @@ public class LCManager {
 
         return result;
     }
-    
+
     /**
      * Gets the highest ETS associated with a
      * consensus ID from the given collects
-     * 
+     *
      * @param cid The consensus ID
      * @param collects The collects from the other replicas
      * @return  The highest ETS
      */
     public int getETS(int cid, Set<CollectData> collects) {
-        
+
         int ets = -1;
         int count = 0;
-        
+
         for (CollectData c : collects) {
-            
+
             if (c.getCid() == cid) {
-                
+
                 if (c.getEts() > ets) {
-                    
+
                     ets = c.getEts();
                     count = 1;
                 } else if (c.getEts() == ets) {
                     count++;
                 }
-                
+
             }
         }
-        
+
         return (count > this.SVController.getCurrentViewF() ? ets : -1);
     }
 }

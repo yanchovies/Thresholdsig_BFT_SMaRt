@@ -16,11 +16,14 @@ limitations under the License.
 package bftsmart.tom.leaderchange;
 
 import bftsmart.consensus.messages.ConsensusMessage;
+import bftsmart.consensus.messages.SigShareMessage;
+import bftsmart.tom.util.TOMUtil;
 
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.math.BigInteger;
 import java.util.Set;
 
 /**
@@ -33,8 +36,10 @@ public class CertifiedDecision implements Externalizable {
     private int pid; // process id
     private int cid; // execution id
     private byte[] decision; // decision value
-    private Set<ConsensusMessage>  consMsgs; // proof of the decision
-    
+    private Set<SigShareMessage> sigsMsgs; // proof of the decision
+    private BigInteger n;//threshold signature public key
+    private BigInteger e;//threshold signature public key
+
     /**
      * Empty constructor
      */
@@ -42,23 +47,27 @@ public class CertifiedDecision implements Externalizable {
         pid = -1;
         cid = -1;
         decision = null;
-        consMsgs = null;
+        sigsMsgs = null;
+        n = new BigInteger("-1");
+        e = new BigInteger("-1");
     }
 
     /**
      * Constructor
-     * 
+     *
      * @param pid process id
      * @param cid execution id
      * @param decision decision value
-     * @param consMsgs proof of the decision in the form of authenticated Consensus Messages
+     * @param sigsMsgs proof of the decision in the form of authenticated Consensus Messages
      */
-    public CertifiedDecision(int pid, int cid, byte[] decision, Set<ConsensusMessage> consMsgs) {
+    public CertifiedDecision(int pid, int cid, byte[] decision, Set<SigShareMessage> sigsMsgs, BigInteger n, BigInteger e) {
 
         this.pid = pid;
         this.cid = cid;
         this.decision = decision;
-        this.consMsgs = consMsgs;
+        this.sigsMsgs = sigsMsgs;
+        this.e = e;
+        this.n = n;
     }
 
     /**
@@ -81,10 +90,17 @@ public class CertifiedDecision implements Externalizable {
      * Get proof of the decision in the form of authenticated Consensus Messages
      * @return proof of the decision in the form of authenticated Consensus Messages
      */
-    public Set<ConsensusMessage>  getConsMessages() {
-        return consMsgs;
+    public Set<SigShareMessage> getSigsMsgs() {
+        return sigsMsgs;
     }
 
+    public BigInteger getN() {
+        return n;
+    }
+
+    public BigInteger getE() {
+        return e;
+    }
     /**
      * Get process id
      * @return process id
@@ -107,13 +123,27 @@ public class CertifiedDecision implements Externalizable {
     public int hashCode() {
         return pid;
     }
-    
+
     public void writeExternal(ObjectOutput out) throws IOException {
 
         out.writeInt(pid);
         out.writeInt(cid);
         out.writeObject(decision);
-        out.writeObject(consMsgs);
+        out.writeObject(sigsMsgs);
+        if (e != null) {
+            byte[] bytes = TOMUtil.toByteArray(e);
+            out.writeInt(bytes.length);
+            out.write(bytes);
+        } else {
+            out.writeInt(-1);
+        }
+        if (n != null) {
+            byte[] bytes = TOMUtil.toByteArray(n);
+            out.writeInt(bytes.length);
+            out.write(bytes);
+        } else {
+            out.writeInt(-1);
+        }
     }
 
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
@@ -121,6 +151,22 @@ public class CertifiedDecision implements Externalizable {
         pid = in.readInt();
         cid = in.readInt();
         decision = (byte[]) in.readObject();
-        consMsgs = (Set<ConsensusMessage>) in.readObject();
+        sigsMsgs = (Set<SigShareMessage>) in.readObject();
+        int toRead = in.readInt();
+        if (toRead != -1) {
+            byte[] value = new byte[toRead];
+            do {
+                toRead -= in.read(value, value.length - toRead, toRead);
+            } while (toRead > 0);
+            e = new BigInteger(1, value);
+        }
+        toRead = in.readInt();
+        if (toRead != -1) {
+            byte[] value = new byte[toRead];
+            do {
+                toRead -= in.read(value, value.length - toRead, toRead);
+            } while (toRead > 0);
+            n = new BigInteger(1, value);
+        }
     }
 }

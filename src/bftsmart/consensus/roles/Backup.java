@@ -59,17 +59,26 @@ public class Backup {
         Epoch epoch = consensus.getEpoch(msg.getEpoch(), controller);
         lock.lock();
         switch (msg.getType()){
+            case MessageFactory.KEYSHARE:{
+                setKeyShare((KeyShareMessage) msg);
+            }break;
             case MessageFactory.PREPARE:{
-                PrepareReceived(epoch,msg);
+                prepareReceived(epoch,msg);
+            }break;
+            case MessageFactory.PRECOMMIT:{
+                preCommitReceived(epoch,msg);
             }break;
             case MessageFactory.COMMIT:{
-                CommitReceived(epoch,msg);
+                commitReceived(epoch,msg);
+            }break;
+            case MessageFactory.DECIDE:{
+                decideReceived(epoch,msg);
             }break;
         }
         lock.unlock();
     }
 
-    private void PrepareReceived(Epoch epoch, ConsensusMessage msg) {
+    private void prepareReceived(Epoch epoch, ConsensusMessage msg) {
         if(epoch.propValue == null) {
             epoch.propValue = msg.getValue();
             epoch.propValueHash = tomLayer.computeHash(msg.getValue());
@@ -77,17 +86,37 @@ public class Backup {
             epoch.deserializedPropValue = tomLayer.checkProposedValue(msg.getValue(), true);
             epoch.getConsensus().getDecision().firstMessageProposed = epoch.deserializedPropValue[0];
         }
-        cid = msg.getNumber();
-
-        SigShareMessage sign = Thresig.sign(msg.getValue(), keyId, n, groupVerifier, verifier, secret, l,cid);
-        communication.send(new int[]{executionManager.getCurrentLeader()}, sign);
+        if(this.keyId!=0){
+            SigShareMessage sign = Thresig.sign(msg.getValue(), keyId, n, groupVerifier, verifier, secret, l,msg.getNumber(),epoch.getTimestamp(),MessageFactory.PREPAREVOTE,controller.getStaticConf().getProcessId());
+            communication.send(new int[]{executionManager.getCurrentLeader()}, sign);
+        }
     }
-    private void CommitReceived(Epoch epoch, ConsensusMessage msg) {
+    private void preCommitReceived(Epoch epoch, ConsensusMessage msg) {
+        if(this.keyId!=0) {
+            SigShareMessage sign = Thresig.sign(msg.getValue(), keyId, n, groupVerifier, verifier, secret, l, msg.getNumber(), epoch.getTimestamp(), MessageFactory.PRECOMMITVOTE, controller.getStaticConf().getProcessId());
+            communication.send(new int[]{executionManager.getCurrentLeader()}, sign);
+            executionManager.processOutOfContext(epoch.getConsensus());
+        }
+    }
+
+    private void commitReceived(Epoch epoch, ConsensusMessage msg) {
+
+        if(this.keyId!=0) {
+            SigShareMessage sign = Thresig.sign(msg.getValue(), keyId, n, groupVerifier, verifier, secret, l, msg.getNumber(), epoch.getTimestamp(), MessageFactory.COMMITVOTE, controller.getStaticConf().getProcessId());
+            communication.send(new int[]{executionManager.getCurrentLeader()}, sign);
+            executionManager.processOutOfContext(epoch.getConsensus());
+        }
+
+    }
+
+
+
+    private void decideReceived(Epoch epoch, ConsensusMessage msg) {
         decide(epoch);
     }
+
     private void decide(Epoch epoch) {
 
-//        dec.setDecisionEpoch(epoch);
         epoch.getConsensus().decided(epoch, true);
     }
 
@@ -99,11 +128,8 @@ public class Backup {
         this.n = keyShare.getN();
         this.verifier = keyShare.getVerifier();
         this.l = keyShare.getL();
-//        this.sendReceiveKey();
     }
-    public void sendReceiveKey(){
-        communication.send(new int[]{executionManager.getCurrentLeader()},new KeyShareMessage(keyId,secret));
-    }
+
 
     public MessageFactory getFactory() {
         return factory;

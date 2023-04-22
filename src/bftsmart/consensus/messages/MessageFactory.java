@@ -24,10 +24,13 @@ public class MessageFactory {
 
     // constants for messages types
     public static final int PREPARE = 44781;
-    public static final int COMMIT = 44788;
-//    public static final int WRITE    = 44782;
-//    public static final int ACCEPT  = 44783;
-
+    public static final int PREPAREVOTE = 44782;
+    public static final int PRECOMMIT = 44783;
+    public static final int PRECOMMITVOTE = 44784;
+    public static final int COMMIT = 44785;
+    public static final int COMMITVOTE = 44786;
+    public static final int DECIDE = 44788;
+    public static final int KEYSHARE = 44900;
     private int from; // Replica ID of the process which sent this message
 
     /**
@@ -40,8 +43,14 @@ public class MessageFactory {
     public ConsensusMessage createPrepare(int id, int epoch, byte[] value){
         return new ConsensusMessage(PREPARE, id, epoch, from, value);
     }
+    public ConsensusMessage createPreCommit(int id, int epoch, byte[] value){
+        return new ConsensusMessage(PRECOMMIT, id, epoch, from, value);
+    }
     public ConsensusMessage createCommit(int id, int epoch, byte[] value){
         return new ConsensusMessage(COMMIT, id, epoch, from, value);
+    }
+    public ConsensusMessage createDecide(int id, int epoch, byte[] value){
+        return new ConsensusMessage(DECIDE, id, epoch, from, value);
     }
 
 }

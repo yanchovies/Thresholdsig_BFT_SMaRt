@@ -1,12 +1,11 @@
 package bftsmart.demo.EVsharing;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Serializable {
-    @Serial
     private static final long serialVersionUID = 2L;
     private String userID;
     private float userBalance;

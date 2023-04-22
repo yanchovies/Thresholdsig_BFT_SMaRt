@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -93,8 +94,21 @@ public class TOMUtil {
             
             TOMUtil.init = true;
         }
-    }    
-    
+    }
+    public static byte[] toByteArray(BigInteger bi) {
+        byte[] array = bi.toByteArray();
+        if (array[0] == 0) {
+            byte[] tmp = new byte[array.length - 1];
+            System.arraycopy(array, 1, tmp, 0, tmp.length);
+            array = tmp;
+        }
+        if (array.length < 24) {
+            byte[] tmp = new byte[24];
+            System.arraycopy(array, 0, tmp, 24 - array.length, array.length);
+            array = tmp;
+        }
+        return array;
+    }
     //******* EDUARDO BEGIN **************//
     public static byte[] getBytes(Object o) {
         ByteArrayOutputStream bOut = new ByteArrayOutputStream();

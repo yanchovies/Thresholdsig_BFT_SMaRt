@@ -73,59 +73,26 @@ public class MessageHandler {
     @SuppressWarnings("unchecked")
     protected void processData(SystemMessage sm) {
         if (sm instanceof ConsensusMessage) {
-
+            ConsensusMessage msg = (ConsensusMessage) sm;
             int myId = tomLayer.controller.getStaticConf().getProcessId();
-            
-            ConsensusMessage consMsg = (ConsensusMessage) sm;
-
-            if (tomLayer.controller.getStaticConf().getUseMACs() == 0 || consMsg.authenticated || consMsg.getSender() == myId) backup.deliver(consMsg);
-            else if (consMsg.getType() == MessageFactory.PREPARE && consMsg.getProof() != null) {
-                                        
-                //We are going to verify the MAC vector at the algorithm level
-                HashMap<Integer, byte[]> macVector = (HashMap<Integer, byte[]>) consMsg.getProof();
-                               
-                byte[] recvMAC = macVector.get(myId);
-                
-                ConsensusMessage cm = new ConsensusMessage(MessageFactory.PREPARE,consMsg.getNumber(),
-                        consMsg.getEpoch(), consMsg.getSender(), consMsg.getValue());
-                
-                ByteArrayOutputStream bOut = new ByteArrayOutputStream(248);
-                try {
-                    new ObjectOutputStream(bOut).writeObject(cm);
-                } catch (IOException ex) {
-                    logger.error("Failed to serialize consensus message",ex);
+            if (msg.authenticated || msg.getSender() == myId) {
+                switch (msg.getType()) {
+                    case MessageFactory.PREPAREVOTE:
+                    case MessageFactory.COMMITVOTE:
+                    case MessageFactory.PRECOMMITVOTE: {
+                        primary.deliver(msg);
+                    }break;
+                    case MessageFactory.PREPARE:
+                    case MessageFactory.PRECOMMIT:
+                    case MessageFactory.COMMIT:
+                    case MessageFactory.DECIDE:
+                    case MessageFactory.KEYSHARE:{
+                        backup.deliver(msg);
+                    }break;
                 }
 
-                byte[] data = bOut.toByteArray();
-        
-                //byte[] hash = tomLayer.computeHash(data); 
-                
-                byte[] myMAC = null;
-                
-                /*byte[] k = tomLayer.getCommunication().getServersConn().getSecretKey(paxosMsg.getSender()).getEncoded();
-                SecretKeySpec key = new SecretKeySpec(new String(k).substring(0, 8).getBytes(), "DES");*/
-                
-                SecretKey key = tomLayer.getCommunication().getServersConn().getSecretKey(consMsg.getSender());
-                try {
-                    this.mac.init(key);                   
-                    myMAC = this.mac.doFinal(data);
-                } catch (/*IllegalBlockSizeException | BadPaddingException |*/ InvalidKeyException ex) {
-                    logger.error("Failed to generate MAC",ex);
-                }
-                
-                if (recvMAC != null && myMAC != null && Arrays.equals(recvMAC, myMAC))
-                    backup.deliver(consMsg);
-                else {
-                    logger.warn("Invalid MAC from " + sm.getSender());
-                }
-            } else {
-                logger.warn("Discarding unauthenticated message from " + sm.getSender());
             }
-
-        }else if(sm instanceof SigShareMessage){
-            SigShareMessage sigShare = (SigShareMessage) sm;
-            primary.deliver(sigShare);
-        } else{
+        }else{
         	if (tomLayer.controller.getStaticConf().getUseMACs() == 0 || sm.authenticated) {
 	            /*** This is Joao's code, related to leader change */
 	            if (sm instanceof LCMessage) {

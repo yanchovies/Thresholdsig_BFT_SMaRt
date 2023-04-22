@@ -134,7 +134,7 @@ class SafePrimeGen {
     // will start.
     // For details see ftp://ftp.rsasecurity.com/pub/pdfs/sp2.pdf
     // ////
-    final int i0BitLengthTargetValue = 12;
+    final int i0BitLengthTargetValue = 6;
     if (log.isLoggable(Level.FINEST))
       log.finest("Have set <i0BitLengthTargetValue=" + i0BitLengthTargetValue
           + ">.");
@@ -145,7 +145,7 @@ class SafePrimeGen {
     // in p0, r, s will start.
     // For details see ftp://ftp.rsasecurity.com/pub/pdfs/sp2.pdf
     // ////
-    final int j0BitLengthTargetValue = 12;
+    final int j0BitLengthTargetValue = 6;
     if (log.isLoggable(Level.FINEST))
       log.finest("Have set <j0BitLengthTargetValue=" + j0BitLengthTargetValue
           + ">.");
