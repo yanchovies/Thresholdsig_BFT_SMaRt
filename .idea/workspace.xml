@@ -22,7 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="final fixes - ready to take measurements" />
+    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="small fixes to test request size">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/hosts.config" beforeDir="false" afterPath="$PROJECT_DIR$/config/hosts.config" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,7 +52,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "last_opened_file_path": "/home/user/hons_project/BFT-SMaRt-1.2"
+    "last_opened_file_path": "/home/user/hons_project/Thresholdsig_BFT_SMaRt"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -57,7 +60,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.EVInteractiveClient">
+  <component name="RunManager" selected="Compound.EVThroughputLatencyServers32-63">
     <configuration name="CounterClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bftsmart.demo.counter.CounterClient" />
       <module name="Thresholdsig_BFT_SMaRt" />
@@ -157,6 +160,96 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EVThroughputLatencyServer10" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="10" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer11" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="11" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer12" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="12" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer13" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="13" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer14" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="14" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer15" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="15" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer16" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="16" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer17" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="17" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer18" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="18" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer19" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="19" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EVThroughputLatencyServer2" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
       <module name="Thresholdsig_BFT_SMaRt" />
@@ -166,10 +259,460 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EVThroughputLatencyServer20" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="20" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer21" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="21" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer22" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="22" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer23" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="23" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer24" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="24" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer25" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="25" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer26" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="26" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer27" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="27" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer28" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="28" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer29" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="29" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EVThroughputLatencyServer3" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
       <module name="Thresholdsig_BFT_SMaRt" />
       <option name="PROGRAM_PARAMETERS" value="3" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer30" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="30" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer31" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="31" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer32" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="32" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer33" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="33" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer34" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="34" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer35" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="35" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer36" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="36" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer37" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="37" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer38" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="38" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer39" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="39" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer4" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="4" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer40" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="40" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer41" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="41" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer42" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="42" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer43" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="43" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer44" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="44" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer45" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="45" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer46" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="46" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer47" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="47" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer48" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="48" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer49" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="49" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer5" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="5" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer50" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="50" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer51" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="51" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer52" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="52" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer53" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="53" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer54" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="54" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer55" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="55" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer56" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="56" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer57" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="57" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer58" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="58" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer59" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="59" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer6" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="6" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer60" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="60" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer61" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="61" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer62" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="62" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer63" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="63" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer7" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="7" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer8" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="8" />
+      <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EVThroughputLatencyServer9" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="bftsmart.demo.EVsharing.EVThroughputLatencyServer" />
+      <module name="Thresholdsig_BFT_SMaRt" />
+      <option name="PROGRAM_PARAMETERS" value="9" />
       <option name="VM_PARAMETERS" value="-Dlogback.configurationFile=&quot;./config/logback.xml&quot;" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -283,11 +826,86 @@
       <toRun name="EVserver3" type="Application" />
       <method v="2" />
     </configuration>
-    <configuration name="EVThroughputLatencyServers" type="CompoundRunConfigurationType">
+    <configuration name="EVThroughputLatencyServers0-3" type="CompoundRunConfigurationType">
       <toRun name="EVThroughputLatencyServer0" type="Application" />
       <toRun name="EVThroughputLatencyServer1" type="Application" />
       <toRun name="EVThroughputLatencyServer2" type="Application" />
       <toRun name="EVThroughputLatencyServer3" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EVThroughputLatencyServers10-15" type="CompoundRunConfigurationType">
+      <toRun name="EVThroughputLatencyServer10" type="Application" />
+      <toRun name="EVThroughputLatencyServer11" type="Application" />
+      <toRun name="EVThroughputLatencyServer12" type="Application" />
+      <toRun name="EVThroughputLatencyServer13" type="Application" />
+      <toRun name="EVThroughputLatencyServer14" type="Application" />
+      <toRun name="EVThroughputLatencyServer15" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EVThroughputLatencyServers16-31" type="CompoundRunConfigurationType">
+      <toRun name="EVThroughputLatencyServer16" type="Application" />
+      <toRun name="EVThroughputLatencyServer17" type="Application" />
+      <toRun name="EVThroughputLatencyServer18" type="Application" />
+      <toRun name="EVThroughputLatencyServer19" type="Application" />
+      <toRun name="EVThroughputLatencyServer20" type="Application" />
+      <toRun name="EVThroughputLatencyServer21" type="Application" />
+      <toRun name="EVThroughputLatencyServer22" type="Application" />
+      <toRun name="EVThroughputLatencyServer23" type="Application" />
+      <toRun name="EVThroughputLatencyServer24" type="Application" />
+      <toRun name="EVThroughputLatencyServer25" type="Application" />
+      <toRun name="EVThroughputLatencyServer26" type="Application" />
+      <toRun name="EVThroughputLatencyServer27" type="Application" />
+      <toRun name="EVThroughputLatencyServer28" type="Application" />
+      <toRun name="EVThroughputLatencyServer29" type="Application" />
+      <toRun name="EVThroughputLatencyServer30" type="Application" />
+      <toRun name="EVThroughputLatencyServer31" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EVThroughputLatencyServers32-63" type="CompoundRunConfigurationType">
+      <toRun name="EVThroughputLatencyServer32" type="Application" />
+      <toRun name="EVThroughputLatencyServer33" type="Application" />
+      <toRun name="EVThroughputLatencyServer34" type="Application" />
+      <toRun name="EVThroughputLatencyServer35" type="Application" />
+      <toRun name="EVThroughputLatencyServer36" type="Application" />
+      <toRun name="EVThroughputLatencyServer37" type="Application" />
+      <toRun name="EVThroughputLatencyServer38" type="Application" />
+      <toRun name="EVThroughputLatencyServer39" type="Application" />
+      <toRun name="EVThroughputLatencyServer40" type="Application" />
+      <toRun name="EVThroughputLatencyServer41" type="Application" />
+      <toRun name="EVThroughputLatencyServer42" type="Application" />
+      <toRun name="EVThroughputLatencyServer43" type="Application" />
+      <toRun name="EVThroughputLatencyServer44" type="Application" />
+      <toRun name="EVThroughputLatencyServer45" type="Application" />
+      <toRun name="EVThroughputLatencyServer46" type="Application" />
+      <toRun name="EVThroughputLatencyServer47" type="Application" />
+      <toRun name="EVThroughputLatencyServer48" type="Application" />
+      <toRun name="EVThroughputLatencyServer49" type="Application" />
+      <toRun name="EVThroughputLatencyServer50" type="Application" />
+      <toRun name="EVThroughputLatencyServer51" type="Application" />
+      <toRun name="EVThroughputLatencyServer52" type="Application" />
+      <toRun name="EVThroughputLatencyServer53" type="Application" />
+      <toRun name="EVThroughputLatencyServer54" type="Application" />
+      <toRun name="EVThroughputLatencyServer55" type="Application" />
+      <toRun name="EVThroughputLatencyServer56" type="Application" />
+      <toRun name="EVThroughputLatencyServer57" type="Application" />
+      <toRun name="EVThroughputLatencyServer58" type="Application" />
+      <toRun name="EVThroughputLatencyServer59" type="Application" />
+      <toRun name="EVThroughputLatencyServer60" type="Application" />
+      <toRun name="EVThroughputLatencyServer61" type="Application" />
+      <toRun name="EVThroughputLatencyServer62" type="Application" />
+      <toRun name="EVThroughputLatencyServer63" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EVThroughputLatencyServers4-7" type="CompoundRunConfigurationType">
+      <toRun name="EVThroughputLatencyServer4" type="Application" />
+      <toRun name="EVThroughputLatencyServer5" type="Application" />
+      <toRun name="EVThroughputLatencyServer6" type="Application" />
+      <toRun name="EVThroughputLatencyServer7" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration name="EVThroughputLatencyServers8-9" type="CompoundRunConfigurationType">
+      <toRun name="EVThroughputLatencyServer8" type="Application" />
+      <toRun name="EVThroughputLatencyServer9" type="Application" />
       <method v="2" />
     </configuration>
     <configuration name="ThroughputLatencyServers" type="CompoundRunConfigurationType">
@@ -307,6 +925,66 @@
       <item itemvalue="Application.EVThroughputLatencyServer1" />
       <item itemvalue="Application.EVThroughputLatencyServer2" />
       <item itemvalue="Application.EVThroughputLatencyServer3" />
+      <item itemvalue="Application.EVThroughputLatencyServer4" />
+      <item itemvalue="Application.EVThroughputLatencyServer5" />
+      <item itemvalue="Application.EVThroughputLatencyServer6" />
+      <item itemvalue="Application.EVThroughputLatencyServer7" />
+      <item itemvalue="Application.EVThroughputLatencyServer8" />
+      <item itemvalue="Application.EVThroughputLatencyServer9" />
+      <item itemvalue="Application.EVThroughputLatencyServer10" />
+      <item itemvalue="Application.EVThroughputLatencyServer11" />
+      <item itemvalue="Application.EVThroughputLatencyServer12" />
+      <item itemvalue="Application.EVThroughputLatencyServer13" />
+      <item itemvalue="Application.EVThroughputLatencyServer14" />
+      <item itemvalue="Application.EVThroughputLatencyServer15" />
+      <item itemvalue="Application.EVThroughputLatencyServer16" />
+      <item itemvalue="Application.EVThroughputLatencyServer17" />
+      <item itemvalue="Application.EVThroughputLatencyServer18" />
+      <item itemvalue="Application.EVThroughputLatencyServer19" />
+      <item itemvalue="Application.EVThroughputLatencyServer20" />
+      <item itemvalue="Application.EVThroughputLatencyServer21" />
+      <item itemvalue="Application.EVThroughputLatencyServer22" />
+      <item itemvalue="Application.EVThroughputLatencyServer23" />
+      <item itemvalue="Application.EVThroughputLatencyServer24" />
+      <item itemvalue="Application.EVThroughputLatencyServer25" />
+      <item itemvalue="Application.EVThroughputLatencyServer26" />
+      <item itemvalue="Application.EVThroughputLatencyServer27" />
+      <item itemvalue="Application.EVThroughputLatencyServer28" />
+      <item itemvalue="Application.EVThroughputLatencyServer29" />
+      <item itemvalue="Application.EVThroughputLatencyServer30" />
+      <item itemvalue="Application.EVThroughputLatencyServer31" />
+      <item itemvalue="Application.EVThroughputLatencyServer32" />
+      <item itemvalue="Application.EVThroughputLatencyServer33" />
+      <item itemvalue="Application.EVThroughputLatencyServer34" />
+      <item itemvalue="Application.EVThroughputLatencyServer35" />
+      <item itemvalue="Application.EVThroughputLatencyServer36" />
+      <item itemvalue="Application.EVThroughputLatencyServer37" />
+      <item itemvalue="Application.EVThroughputLatencyServer38" />
+      <item itemvalue="Application.EVThroughputLatencyServer39" />
+      <item itemvalue="Application.EVThroughputLatencyServer40" />
+      <item itemvalue="Application.EVThroughputLatencyServer41" />
+      <item itemvalue="Application.EVThroughputLatencyServer42" />
+      <item itemvalue="Application.EVThroughputLatencyServer43" />
+      <item itemvalue="Application.EVThroughputLatencyServer44" />
+      <item itemvalue="Application.EVThroughputLatencyServer45" />
+      <item itemvalue="Application.EVThroughputLatencyServer46" />
+      <item itemvalue="Application.EVThroughputLatencyServer47" />
+      <item itemvalue="Application.EVThroughputLatencyServer48" />
+      <item itemvalue="Application.EVThroughputLatencyServer49" />
+      <item itemvalue="Application.EVThroughputLatencyServer50" />
+      <item itemvalue="Application.EVThroughputLatencyServer51" />
+      <item itemvalue="Application.EVThroughputLatencyServer52" />
+      <item itemvalue="Application.EVThroughputLatencyServer53" />
+      <item itemvalue="Application.EVThroughputLatencyServer54" />
+      <item itemvalue="Application.EVThroughputLatencyServer55" />
+      <item itemvalue="Application.EVThroughputLatencyServer56" />
+      <item itemvalue="Application.EVThroughputLatencyServer57" />
+      <item itemvalue="Application.EVThroughputLatencyServer58" />
+      <item itemvalue="Application.EVThroughputLatencyServer59" />
+      <item itemvalue="Application.EVThroughputLatencyServer60" />
+      <item itemvalue="Application.EVThroughputLatencyServer61" />
+      <item itemvalue="Application.EVThroughputLatencyServer62" />
+      <item itemvalue="Application.EVThroughputLatencyServer63" />
       <item itemvalue="Application.CounterServer1" />
       <item itemvalue="Application.CounterServer2" />
       <item itemvalue="Application.CounterServer3" />
@@ -318,8 +996,13 @@
       <item itemvalue="Application.EVInteractiveClient" />
       <item itemvalue="Application.CounterClient" />
       <item itemvalue="Application.CounterServer0" />
+      <item itemvalue="Compound.EVThroughputLatencyServers0-3" />
+      <item itemvalue="Compound.EVThroughputLatencyServers4-7" />
+      <item itemvalue="Compound.EVThroughputLatencyServers8-9" />
+      <item itemvalue="Compound.EVThroughputLatencyServers10-15" />
+      <item itemvalue="Compound.EVThroughputLatencyServers16-31" />
+      <item itemvalue="Compound.EVThroughputLatencyServers32-63" />
       <item itemvalue="Compound.ThroughputLatencyServers" />
-      <item itemvalue="Compound.EVThroughputLatencyServers" />
       <item itemvalue="Compound.EVServers" />
     </list>
     <recent_temporary>
@@ -386,7 +1069,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682199512170</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="small fixes to test request size">
+      <created>1682267935536</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682267935536</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,6 +1100,7 @@
     <MESSAGE value="the implementation of the tool is done" />
     <MESSAGE value="some fixes to implementation and progress with experiments implementation" />
     <MESSAGE value="final fixes - ready to take measurements" />
-    <option name="LAST_COMMIT_MESSAGE" value="final fixes - ready to take measurements" />
+    <MESSAGE value="small fixes to test request size" />
+    <option name="LAST_COMMIT_MESSAGE" value="small fixes to test request size" />
   </component>
 </project>
