@@ -22,50 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="some fixes to implementation and progress with experiments implementation">
-      <change afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVThroughputLatencyServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/currentView" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config/logback.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/benchmark/ThroughputLatencyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/benchmark/ThroughputLatencyServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/communication/MessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/communication/MessageHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/Epoch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/Epoch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/messages/KeyShareMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/messages/KeyShareMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/messages/MessageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/messages/MessageFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/messages/SigShareMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/messages/SigShareMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Backup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Backup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Primary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/consensus/roles/Primary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVThroughputLatencyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVThroughputLatencyClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/EVserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Quartet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Quartet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/demo/EVsharing/Vehicle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/SafePrimeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/SafePrimeGen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/Thresig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/reconfiguration/util/thresholdsig/Thresig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/BaseStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/BaseStateManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/StandardStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/StandardStateManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTRequestF1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTRequestFGT1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTSMMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/CSTState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/DurableStateManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/StateSender.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/statemanagement/strategy/durability/StateSenderServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/MessageContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/MessageContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/ServiceReplica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/ServiceReplica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/core/DeliveryThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/core/DeliveryThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/core/Synchronizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/core/Synchronizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/core/TOMLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/core/TOMLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/CertifiedDecision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/CertifiedDecision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/LCManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/leaderchange/LCManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/CommandsInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/CommandsInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/DefaultApplicationState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/DefaultApplicationState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/durability/DurabilityCoordinator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/server/defaultservices/durability/DurableStateLog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bftsmart/tom/util/TOMUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bftsmart/tom/util/TOMUtil.java" afterDir="false" />
-    </list>
+    <list default="true" id="5a23db29-0f16-47e6-9919-05126af0c76d" name="Changes" comment="final fixes - ready to take measurements" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,7 +49,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "last_opened_file_path": "/home/user/hons_project/Thresholdsig_BFT_SMaRt"
+    "last_opened_file_path": "/home/user/hons_project/BFT-SMaRt-1.2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -422,7 +379,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682038473890</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="final fixes - ready to take measurements">
+      <created>1682199512170</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682199512170</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,6 +409,7 @@
     <MESSAGE value="registering and booking processes are done" />
     <MESSAGE value="the implementation of the tool is done" />
     <MESSAGE value="some fixes to implementation and progress with experiments implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="some fixes to implementation and progress with experiments implementation" />
+    <MESSAGE value="final fixes - ready to take measurements" />
+    <option name="LAST_COMMIT_MESSAGE" value="final fixes - ready to take measurements" />
   </component>
 </project>
